@@ -176,7 +176,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 70
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -200,7 +200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 516296313}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 44, y: 44, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -236,6 +236,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00bf7accfd97df240a07b7b978cadb0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 8982158233785525590, guid: 86caeea293a293a45b6b209974649b18, type: 3}
+  beginningField: {fileID: 4257149413273153387, guid: a63a1f3f128e65b4892ef394ff384cd7, type: 3}
+  field: {fileID: 8323164654446368279, guid: 62964081c06e3af4e94819761fecc274, type: 3}
+  wall: {fileID: 2416640657697264136, guid: dd129d5206682b7409cea5f646685be4, type: 3}
+  rock: {fileID: 5753815600068505988, guid: 775403e33fb3e684ba24341390b2b2df, type: 3}
+  spike: {fileID: 6308725617331448343, guid: 67d04340bb4ef4d41af3831d6eb19f32, type: 3}
+  enemy: {fileID: 6351872184333157269, guid: 4d3ac875ea63afb4b91ef343252285c5, type: 3}
+  key: {fileID: 4676644907355614200, guid: 806371dd9b16c424896a56705b359555, type: 3}
+  door: {fileID: 8113835676751982191, guid: d264567f4044d1e4b82b8c6690ac48e1, type: 3}
+  seed: 
+  levelObjects: []
+  placingObject: {fileID: 0}
+  SeedHolder: {fileID: 0}
 --- !u!4 &1735603729
 Transform:
   m_ObjectHideFlags: 0
