@@ -116,17 +116,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBeginningField: 0
-  isField: 0
+  isField: 1
   isWall: 0
   isRock: 0
   isSpike: 1
   isEnemy: 0
   isKey: 0
   isDoor: 0
+  isChangableSpike: 0
   isTakenByRock: 0
   isTakenByEnemy: 0
   isSpikeActive: 0
   isHoldingKey: 0
+  spriteRenderer: {fileID: 0}
+  inactiveSprite: {fileID: 21300000, guid: da5fc443304901f42a1b7462ff39f7cd, type: 3}
+  activeSprite: {fileID: 21300000, guid: 57bccbff864934443b8eb8cefcd408c8, type: 3}
+  needsToMove: 0
+  LevelGenerator: {fileID: 0}
 --- !u!1001 &3255426067372125861
 PrefabInstance:
   m_ObjectHideFlags: 0

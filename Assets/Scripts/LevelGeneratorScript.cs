@@ -14,11 +14,15 @@ public class LevelGeneratorScript : MonoBehaviour
     [SerializeField] GameObject key;
     [SerializeField] GameObject door;
 
-
+    
     public string seed;
     public List<GameObject> levelObjects;
+    public List<GameObject> fields;
+    public List<GameObject> players;
     public GameObject placingObject;
     [SerializeField] GameObject SeedHolder;
+
+    public int keys = 0;
     
     SeedHolderScript SeedHolderScript;
     void Start()
@@ -35,19 +39,19 @@ public class LevelGeneratorScript : MonoBehaviour
             if(character.ToString() == "f") //field
             {
                 placingObject = Instantiate(field);
-                levelObjects.Add(placingObject);
+                fields.Add(placingObject);
                 addCoordinates(placingObject, i);
             }
             else if(character.ToString() == "w") //wall
             {
                 placingObject = Instantiate(wall);
-                levelObjects.Add(placingObject);
+                fields.Add(placingObject);
                 addCoordinates(placingObject, i);
             }
             else if(character.ToString() == "r") //rock
             {
                 placingObject = Instantiate(field); //field on which the rock will be standing
-                levelObjects.Add(placingObject);
+                fields.Add(placingObject);
                 addCoordinates(placingObject, i);
                 placingObject.GetComponent<ElementTypeInterface>().isTakenByRock = true;
 
@@ -58,7 +62,7 @@ public class LevelGeneratorScript : MonoBehaviour
             else if(character.ToString() == "e") //enemy
             {
                 placingObject = Instantiate(field); //field on which the enemy will be standing
-                levelObjects.Add(placingObject);
+                fields.Add(placingObject);
                 addCoordinates(placingObject, i);
                 placingObject.GetComponent<ElementTypeInterface>().isTakenByEnemy = true;
 
@@ -69,42 +73,54 @@ public class LevelGeneratorScript : MonoBehaviour
             else if(character.ToString() == "a") //active spike
             {
                 placingObject = Instantiate(spike);
-                levelObjects.Add(placingObject);
+                fields.Add(placingObject);
                 addCoordinates(placingObject, i);
                 placingObject.GetComponent<ElementTypeInterface>().ActivateSpike();
 
             }
-            else if(character.ToString() == "s") //spike
+            else if(character.ToString() == "s") //changable active spike
             {
                 placingObject = Instantiate(spike);
-                levelObjects.Add(placingObject);
+                fields.Add(placingObject);
                 addCoordinates(placingObject, i);
+                placingObject.GetComponent<ElementTypeInterface>().isChangableSpike = true;
+                placingObject.GetComponent<ElementTypeInterface>().ActivateSpike();
+            }
+            else if(character.ToString() == "c") //changable inactive spike
+            {
+                placingObject = Instantiate(spike);
+                fields.Add(placingObject);
+                addCoordinates(placingObject, i);
+                placingObject.GetComponent<ElementTypeInterface>().isChangableSpike = true;
+                placingObject.GetComponent<ElementTypeInterface>().DeactivateSpike();
             }
             else if(character.ToString() == "b") // beginningField
             {
                 placingObject = Instantiate(beginningField);
-                levelObjects.Add(placingObject);
+                fields.Add(placingObject);
                 addCoordinates(placingObject, i);
 
                 player = Instantiate(player);
+                players.Add(player);
                 addCoordinates(player, i);
             }
             else if(character.ToString() == "d") //door
             {
                 placingObject = Instantiate(door);
-                levelObjects.Add(placingObject);
+                fields.Add(placingObject);
                 addCoordinates(placingObject, i);
             } 
             else if(character.ToString() == "k") //key
             {
                 placingObject = Instantiate(field); //field on which the key will be standing
-                levelObjects.Add(placingObject);
+                fields.Add(placingObject);
                 addCoordinates(placingObject, i);
                 placingObject.GetComponent<ElementTypeInterface>().isHoldingKey = true;
                 
                 placingObject = Instantiate(key);
                 levelObjects.Add(placingObject);
                 addCoordinates(placingObject, i);
+                keys++;
             } 
             else 
             {
@@ -115,7 +131,7 @@ public class LevelGeneratorScript : MonoBehaviour
         for (int i = seed.Length; i < 100; i ++) // We are placing walls on top of level
         {
             placingObject = Instantiate(wall);
-            levelObjects.Add(placingObject);
+            fields.Add(placingObject);
             addCoordinates(placingObject, i);
         }
 
@@ -155,7 +171,7 @@ public class LevelGeneratorScript : MonoBehaviour
                 if(borderX == 0 || borderX == 11 || borderY == 0 || borderY == 11)
                 {
                     placingObject = Instantiate(wall);
-                    levelObjects.Add(placingObject);
+                    fields.Add(placingObject);
                     placingObject.GetComponent<ElementCoordinates>().TableNumberX = borderX;
                     placingObject.GetComponent<ElementCoordinates>().TableNumberY = borderY;
                     placingObject.GetComponent<ElementCoordinates>().placeOnLevel();
