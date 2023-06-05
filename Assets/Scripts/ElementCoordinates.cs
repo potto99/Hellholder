@@ -12,8 +12,8 @@ public class ElementCoordinates : MonoBehaviour
     
     public void placeOnLevel()
     {
-        positionX = TableNumberX * 8;
-        positionY = TableNumberY * 8;
+        positionX = TableNumberX * 32;
+        positionY = TableNumberY * 32;
         this.gameObject.transform.position = new Vector2(positionX, positionY);
     }
 }

@@ -55,6 +55,17 @@ public class LevelGeneratorScript : MonoBehaviour
                 levelObjects.Add(placingObject);
                 addCoordinates(placingObject, i);
             }
+            else if(character.ToString() == "e") //enemy
+            {
+                placingObject = Instantiate(field); //field on which the enemy will be standing
+                levelObjects.Add(placingObject);
+                addCoordinates(placingObject, i);
+                placingObject.GetComponent<ElementTypeInterface>().isTakenByEnemy = true;
+
+                placingObject = Instantiate(enemy); 
+                levelObjects.Add(placingObject);
+                addCoordinates(placingObject, i);
+            }
             else if(character.ToString() == "a") //active spike
             {
                 placingObject = Instantiate(spike);
@@ -76,7 +87,7 @@ public class LevelGeneratorScript : MonoBehaviour
                 addCoordinates(placingObject, i);
 
                 player = Instantiate(player);
-                addCoordinates(placingObject, i);
+                addCoordinates(player, i);
             }
             else if(character.ToString() == "d") //door
             {

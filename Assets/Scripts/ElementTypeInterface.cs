@@ -35,16 +35,14 @@ public class ElementTypeInterface : MonoBehaviour
     public void ActivateSpike()
     {
         isSpikeActive = true;
-        // this.gameObject.transform.rotation.z  = new Vector3(0, 0, 90f);
-        //Jak się robiło te głupie obracanie?
-        //Ugh
+        
 
-        transform.Rotate(0, 0, 45, Space.World);
+        // transform.Rotate(0, 0, 45, Space.World);
     }
     public void DeactivateSpike()
     {
         isSpikeActive = false;
-        transform.Rotate(0, 0, -45, Space.World);
-        // this.gameObject.transform.rotation = new Vector3(0, 0, 0);
+        // transform.Rotate(0, 0, -45, Space.World);
+        
     }
 }
