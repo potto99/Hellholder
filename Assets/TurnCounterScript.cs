@@ -35,6 +35,10 @@ public class TurnCounterScript : MonoBehaviour
     {
         movesLeft--;
         Turns.text = movesLeft.ToString();
+        if(movesLeft < 0)
+        {
+            Debug.Log("Przegrałeś");
+        }
     }
 
 }

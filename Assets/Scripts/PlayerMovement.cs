@@ -28,7 +28,8 @@ public class PlayerMovement : MonoBehaviour
         ElementCoordinates = GetComponent<ElementCoordinates>();
         TableNumberX = ElementCoordinates.TableNumberX;
         TableNumberY = ElementCoordinates.TableNumberY;
-        
+        TableNumberX_toCheck = TableNumberX;
+        TableNumberY_toCheck = TableNumberY;
        
     }
 

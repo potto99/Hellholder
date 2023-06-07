@@ -92,6 +92,24 @@ public class ElementTypeInterface : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         isSpikeActive = true;
         spriteRenderer.sprite = activeSprite;
+        if(isTakenByEnemy)
+        {
+            List<GameObject> levelObjects = LevelGeneratorScript.levelObjects;
+            foreach(GameObject levelObject in levelObjects)
+            {
+                ElementTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTypeInterface>();
+                if(objectElementTypeInterface.isEnemy == true)
+                {
+                    ElementCoordinates enemyCoordinates = levelObject.GetComponent<ElementCoordinates>();
+                    if(enemyCoordinates.TableNumberX == myElementCoordinates.TableNumberX && enemyCoordinates.TableNumberY == myElementCoordinates.TableNumberY)
+                    {
+                        Destroy(levelObject);
+                        break;
+                    }
+                
+                }
+            }
+        }
 
         // transform.Rotate(0, 0, 45, Space.World);
     }
@@ -121,7 +139,7 @@ public class ElementTypeInterface : MonoBehaviour
             if(fieldCoordinates.TableNumberX == TableNumberX_toCheck && fieldCoordinates.TableNumberY == TableNumberY_toCheck)
             {
                 ElementTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTypeInterface>();
-                if(fieldElementTypeInterface.isTakenByEnemy == false && fieldElementTypeInterface.isTakenByRock == false && fieldElementTypeInterface.isWall == false)
+                if(fieldElementTypeInterface.isTakenByEnemy == false && fieldElementTypeInterface.isTakenByRock == false && fieldElementTypeInterface.isWall == false && fieldElementTypeInterface.isDoor == false)
                 {
                     // W przyszłości trzeba tu też sprawdzać, czy spike jest aktywny
                     if(isEnemy == true){fieldElementTypeInterface.isTakenByEnemy = true;}
