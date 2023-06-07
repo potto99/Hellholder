@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8113835676751982191}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.2722936, y: 0.13051948, z: 0}
+  m_LocalPosition: {x: 288, y: 64, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef45b1c9dd1240428be0928915c2c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TableNumberX: 0
-  TableNumberY: 0
-  positionX: 0
-  positionY: 0
+  TableNumberX: 9
+  TableNumberY: 2
+  positionX: 288
+  positionY: 64
 --- !u!114 &838946276748640847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,10 +123,16 @@ MonoBehaviour:
   isEnemy: 0
   isKey: 0
   isDoor: 1
+  isChangableSpike: 0
   isTakenByRock: 0
   isTakenByEnemy: 0
   isSpikeActive: 0
   isHoldingKey: 0
+  spriteRenderer: {fileID: 0}
+  inactiveSprite: {fileID: 0}
+  activeSprite: {fileID: 0}
+  needsToMove: 0
+  LevelGenerator: {fileID: 0}
 --- !u!1001 &842773417254748123
 PrefabInstance:
   m_ObjectHideFlags: 0

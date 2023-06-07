@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6308725617331448343}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0374, y: -0.1252, z: 0}
+  m_LocalPosition: {x: 128, y: 64, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: -1342087999
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: da5fc443304901f42a1b7462ff39f7cd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 57bccbff864934443b8eb8cefcd408c8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef45b1c9dd1240428be0928915c2c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TableNumberX: 0
-  TableNumberY: 0
-  positionX: 0
-  positionY: 0
+  TableNumberX: 4
+  TableNumberY: 2
+  positionX: 128
+  positionY: 64
 --- !u!114 &3221115214216726071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,12 +123,12 @@ MonoBehaviour:
   isEnemy: 0
   isKey: 0
   isDoor: 0
-  isChangableSpike: 0
+  isChangableSpike: 1
   isTakenByRock: 0
   isTakenByEnemy: 0
-  isSpikeActive: 0
+  isSpikeActive: 1
   isHoldingKey: 0
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 6308725617331448342}
   inactiveSprite: {fileID: 21300000, guid: da5fc443304901f42a1b7462ff39f7cd, type: 3}
   activeSprite: {fileID: 21300000, guid: 57bccbff864934443b8eb8cefcd408c8, type: 3}
   needsToMove: 0

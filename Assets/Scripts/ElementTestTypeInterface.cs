@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class ElementTypeInterface : MonoBehaviour
+public class ElementTestTypeInterface : MonoBehaviour
 {
     [SerializeField] public bool isBeginningField;
     [SerializeField] public bool isField;
@@ -30,14 +30,13 @@ public class ElementTypeInterface : MonoBehaviour
 
 
     [SerializeField] public GameObject LevelGenerator;
-    LevelGeneratorScript LevelGeneratorScript;
+    LevelTestGeneratorScript LevelGeneratorScript;
     ElementCoordinates myElementCoordinates;
 
     void Start()
     {
-        LevelGenerator = GameObject.Find("LevelGeneratorObject");
-        LevelGeneratorScript = LevelGenerator.GetComponent<LevelGeneratorScript>();
-        
+        LevelGenerator = GameObject.Find("LevelTestGeneratorObject");
+        LevelGeneratorScript = LevelGenerator.GetComponent<LevelTestGeneratorScript>(); 
         myElementCoordinates = GetComponent<ElementCoordinates>();
     }
 
