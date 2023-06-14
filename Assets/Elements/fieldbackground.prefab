@@ -115,14 +115,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBeginningField: 0
-  isField: 1
+  isField: 0
   isWall: 0
   isRock: 0
   isSpike: 0
   isEnemy: 0
   isKey: 0
   isDoor: 0
+  isChangableSpike: 0
   isTakenByRock: 0
   isTakenByEnemy: 0
   isSpikeActive: 0
   isHoldingKey: 0
+  spriteRenderer: {fileID: 0}
+  inactiveSprite: {fileID: 0}
+  activeSprite: {fileID: 0}
+  needsToMove: 0
+  LevelGenerator: {fileID: 0}

@@ -124,10 +124,10 @@ MonoBehaviour:
   isKey: 0
   isDoor: 0
   isChangableSpike: 0
-  isTakenByRock: 1
-  isTakenByEnemy: 1
+  isTakenByRock: 0
+  isTakenByEnemy: 0
   isSpikeActive: 0
-  isHoldingKey: 1
+  isHoldingKey: 0
   spriteRenderer: {fileID: 0}
   inactiveSprite: {fileID: 0}
   activeSprite: {fileID: 0}

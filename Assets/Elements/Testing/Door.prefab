@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6114434514894392746}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 288, y: 64, z: 0}
+  m_LocalPosition: {x: 224, y: 32, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -99,10 +99,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef45b1c9dd1240428be0928915c2c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TableNumberX: 9
-  TableNumberY: 2
-  positionX: 288
-  positionY: 64
+  TableNumberX: 7
+  TableNumberY: 1
+  positionX: 224
+  positionY: 32
 --- !u!114 &755937519581699057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 6831646071060587938}
   - component: {fileID: 6831646071060587941}
   - component: {fileID: 6657978294826725961}
-  - component: {fileID: 2733766721894500740}
+  - component: {fileID: 4108589390860597773}
   m_Layer: 0
   m_Name: fieldbackground
   m_TagString: Untagged
@@ -235,7 +235,7 @@ MonoBehaviour:
   TableNumberY: 0
   positionX: 0
   positionY: 0
---- !u!114 &2733766721894500740
+--- !u!114 &4108589390860597773
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6831646071060587940}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ade8d66a67ef8b94998b961a42852a79, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bc24114e18069c4393b315231c269be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isBeginningField: 0

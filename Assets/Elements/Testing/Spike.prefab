@@ -128,7 +128,7 @@ MonoBehaviour:
   isTakenByEnemy: 0
   isSpikeActive: 1
   isHoldingKey: 0
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 507375102242439551}
   inactiveSprite: {fileID: 21300000, guid: da5fc443304901f42a1b7462ff39f7cd, type: 3}
   activeSprite: {fileID: 21300000, guid: 57bccbff864934443b8eb8cefcd408c8, type: 3}
   needsToMove: 0

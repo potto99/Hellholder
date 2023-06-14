@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 664733422992486980}
   - component: {fileID: 664733422992486979}
   - component: {fileID: 833897770311083439}
-  - component: {fileID: 8216589063281958498}
+  - component: {fileID: 5830357156150435147}
   m_Layer: 0
   m_Name: fieldbackground
   m_TagString: Untagged
@@ -102,7 +102,7 @@ MonoBehaviour:
   TableNumberY: 0
   positionX: 0
   positionY: 0
---- !u!114 &8216589063281958498
+--- !u!114 &5830357156150435147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 664733422992486978}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ade8d66a67ef8b94998b961a42852a79, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bc24114e18069c4393b315231c269be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isBeginningField: 0

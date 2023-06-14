@@ -75,15 +75,12 @@ public class ElementTestTypeInterface : MonoBehaviour
     public void ChangeSpikeState()
     {
         
-        Debug.Log("spike");
         if(isSpikeActive == true && isSpike == true && isChangableSpike)
         {
-            Debug.Log("deaktywuj");
             DeactivateSpike();
         }
         else if(isSpikeActive == false && isSpike == true && isChangableSpike)
         {
-            Debug.Log("aktywuj");
             ActivateSpike();
         }
     }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7607614859048702057}
   - component: {fileID: 7607614859048702062}
   - component: {fileID: 7726118075321206658}
-  - component: {fileID: 1345739383203494991}
+  - component: {fileID: 1907315249979745267}
   m_Layer: 0
   m_Name: fieldbackground
   m_TagString: Untagged
@@ -102,7 +102,7 @@ MonoBehaviour:
   TableNumberY: 0
   positionX: 0
   positionY: 0
---- !u!114 &1345739383203494991
+--- !u!114 &1907315249979745267
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7607614859048702063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ade8d66a67ef8b94998b961a42852a79, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bc24114e18069c4393b315231c269be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isBeginningField: 0
@@ -159,7 +159,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8220934109329472373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 64, y: 160, z: 0}
+  m_LocalPosition: {x: 192, y: 32, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -231,10 +231,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ef45b1c9dd1240428be0928915c2c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TableNumberX: 2
-  TableNumberY: 5
-  positionX: 64
-  positionY: 160
+  TableNumberX: 6
+  TableNumberY: 1
+  positionX: 192
+  positionY: 32
 --- !u!114 &3404634865989694343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,10 +256,10 @@ MonoBehaviour:
   isKey: 0
   isDoor: 0
   isChangableSpike: 0
-  isTakenByRock: 1
-  isTakenByEnemy: 1
+  isTakenByRock: 0
+  isTakenByEnemy: 0
   isSpikeActive: 0
-  isHoldingKey: 1
+  isHoldingKey: 0
   spriteRenderer: {fileID: 0}
   inactiveSprite: {fileID: 0}
   activeSprite: {fileID: 0}
