@@ -9,10 +9,21 @@ public class SeedHolderScript : MonoBehaviour
 {
     [SerializeField] public TMP_InputField SeedStringInput;
     public string seed;
+    public bool ownsSeed = false;
 
     void Start()
     {
+        GameObject preExistingSeedHolder = GameObject.Find("SeedHolderDontDestroy");
         
+
+        if(preExistingSeedHolder != null)
+        {
+            SeedHolderScript SeedHolderToExtractSeedFrom = preExistingSeedHolder.GetComponent<SeedHolderScript>();
+            seed = SeedHolderToExtractSeedFrom.seed;    
+            Destroy(preExistingSeedHolder);
+            SeedStringInput.transform.Find("Text Area").transform.Find("Placeholder").GetComponent<TMP_Text>().text = seed;
+            ownsSeed = true;
+        }
     }
 
     public void acceptSeed()
@@ -20,7 +31,7 @@ public class SeedHolderScript : MonoBehaviour
         bool seedCorrect = true;
         if(seed.Length <= 100)
         {
-            seed = SeedStringInput.text;
+            if(ownsSeed == false){seed = SeedStringInput.text;}
             char character;
             for (int i = 0; i < seed.Length; i ++)
             {
@@ -41,6 +52,7 @@ public class SeedHolderScript : MonoBehaviour
         if(seedCorrect == true)
         {
             DontDestroyOnLoad(this.gameObject);
+            this.gameObject.name = "SeedHolderDontDestroy";
             SceneManager.LoadScene("GeneratedLevelScene");
         }
 
@@ -52,7 +64,7 @@ public class SeedHolderScript : MonoBehaviour
         bool seedCorrect = true;
         if(seed.Length <= 100)
         {
-            seed = SeedStringInput.text;
+            if(ownsSeed == false){seed = SeedStringInput.text;}
             char character;
             for (int i = 0; i < seed.Length; i ++)
             {
@@ -73,6 +85,7 @@ public class SeedHolderScript : MonoBehaviour
         if(seedCorrect == true)
         {
             DontDestroyOnLoad(this.gameObject);
+            this.gameObject.name = "SeedHolderDontDestroy";
             SceneManager.LoadScene("SeedTestingScene");
         }
 

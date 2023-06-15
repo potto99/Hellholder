@@ -32,7 +32,7 @@ public class LevelTestGeneratorScript : MonoBehaviour
     {
         fields.Clear();
         levelObjects.Clear();
-        SeedHolder = GameObject.Find("SeedHolder");
+        SeedHolder = GameObject.Find("SeedHolderDontDestroy");
         SeedHolderScript = SeedHolder.GetComponent<SeedHolderScript>();
         seed = SeedHolderScript.seed;
 

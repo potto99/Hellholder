@@ -27,7 +27,7 @@ public class LevelGeneratorScript : MonoBehaviour
     SeedHolderScript SeedHolderScript;
     void Start()
     {
-        SeedHolder = GameObject.Find("SeedHolder");
+        SeedHolder = GameObject.Find("SeedHolderDontDestroy");
         SeedHolderScript = SeedHolder.GetComponent<SeedHolderScript>();
         seed = SeedHolderScript.seed;
 

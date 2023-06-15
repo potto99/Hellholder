@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TestSupervisingScript : MonoBehaviour
 {
+    [SerializeField] public TMP_Text TestingStatus;
+    int testingTextCount = 1;
     // string movementSequence = "dddddddddddddddddddddddddddddddddddddddd";
     char[] movementSequence = new char[] {'d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d'};
 
@@ -48,7 +51,6 @@ public class TestSupervisingScript : MonoBehaviour
                 canGetNewMove = false;
                 return;
             }
-
             character = movementSequence[turn];
             if(character == 'd'){PlayerTesting.GoRight(); canGetNewMove = false;}
             else if(character == 'w'){PlayerTesting.GoUp(); canGetNewMove = false;}
@@ -56,14 +58,14 @@ public class TestSupervisingScript : MonoBehaviour
             else if(character == 'a'){PlayerTesting.GoLeft(); canGetNewMove = false;}
             turn++;
             // Debug.Log(turn);
-            if(turn > minMoves){ChangeSequence();}
+            if(turn >= minMoves){ChangeSequence();}
             
         }
     }
 
     void ChangeSequence()
     {
-        
+        ChangeTestingText(false);
         
         string movementSequenceString = new string(movementSequence);
         if(movementSequenceString == "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
@@ -138,17 +140,46 @@ public class TestSupervisingScript : MonoBehaviour
         minMoves = turn-1;
         string movementSequenceString = new string(movementSequence);
         Debug.Log("Nowa solucja: " + movementSequenceString);
-
+        
         ChangeSequence();
         // Debug.Log(movementSequenceString);
     }
 
     public void AllPossibilitiesChecked()
     {
+        ChangeTestingText(true);
         Debug.Log("Wszystkie opcje sprawdzone");
         Debug.Log("HighestChanged: " + highestChanged);
         Debug.Log("MinMoves: " + minMoves);
     }
 
+    public void ChangeTestingText(bool done)
+    {
+        if(done == false)
+        {
+            testingTextCount++;
+            if(testingTextCount == 4)
+            {
+                testingTextCount = 1;
+            }
+            if(testingTextCount == 1)
+            {
+                TestingStatus.text = "IN PROGRESS.";
+            }
+            else if(testingTextCount == 2)
+            {
+                TestingStatus.text = "IN PROGRESS..";
+            }
+            else if(testingTextCount == 3)
+            {
+                TestingStatus.text = "IN PROGRESS...";
+            }
+        }
+
+        else if(done == true)
+        {
+            TestingStatus.text = "DONE";
+        }
+    }
     
 }
