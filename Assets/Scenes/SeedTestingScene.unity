@@ -815,6 +815,7 @@ MonoBehaviour:
   timeForNextmove: 0
   timeForNextCheck: 0
   canGetNewMove: 1
+  finishedSearching: 0
 --- !u!4 &1985997309
 Transform:
   m_ObjectHideFlags: 0

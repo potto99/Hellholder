@@ -10,6 +10,9 @@ public class TestSupervisingScript : MonoBehaviour
     // string movementSequence = "dddddddddddddddddddddddddddddddddddddddd";
     char[] movementSequence = new char[] {'d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d'};
 
+    
+
+
     public int turn = 0;
     public int minMoves = 40;
     public int highestChanged = 0;
@@ -24,6 +27,7 @@ public class TestSupervisingScript : MonoBehaviour
     public bool timeForNextmove = false;
     public bool timeForNextCheck = false;
     public bool canGetNewMove = true;
+    public bool finishedSearching = false;
     char character = '0';
 
     void Start()
@@ -42,7 +46,7 @@ public class TestSupervisingScript : MonoBehaviour
         
        
         
-        if(canGetNewMove)
+        if(canGetNewMove && finishedSearching == false)
         {
             
             if(highestChanged > minMoves)
@@ -51,6 +55,7 @@ public class TestSupervisingScript : MonoBehaviour
                 canGetNewMove = false;
                 return;
             }
+            // Debug.Log(turn);
             character = movementSequence[turn];
             if(character == 'd'){PlayerTesting.GoRight(); canGetNewMove = false;}
             else if(character == 'w'){PlayerTesting.GoUp(); canGetNewMove = false;}
@@ -151,6 +156,7 @@ public class TestSupervisingScript : MonoBehaviour
         Debug.Log("Wszystkie opcje sprawdzone");
         Debug.Log("HighestChanged: " + highestChanged);
         Debug.Log("MinMoves: " + minMoves);
+        finishedSearching = true;
     }
 
     public void ChangeTestingText(bool done)
