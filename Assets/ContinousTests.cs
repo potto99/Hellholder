@@ -15,11 +15,11 @@ public class ContinousTests : MonoBehaviour
 
     void Start() 
     {
-        ContinousPanel.SetActive(false);
-        if(testContinous == true)
+        if(GameObject.Find("KeepTesting") && GameObject.Find("KeepTesting") != this.gameObject)
         {
+            testContinous = true;
+            Destroy(GameObject.Find("KeepTesting"));
             DontDestroyOnLoad(this.gameObject);
-            //Kiedyś będzie trzeba to poprawić, żeby ten obiekt przestawał istnieć, jeżeli już nie chcemy robić ciągłych testów.
             Scene scene = SceneManager.GetActiveScene();
             if(scene.name == "GeneratingRandomSeedScene")
             {
@@ -28,8 +28,28 @@ public class ContinousTests : MonoBehaviour
                 GameObject SeedHolder = GameObject.Find("SeedHolder");
                 SeedHolder.GetComponent<SeedHolderScript>().testSeed();
             }
+            else
+            {
+                Destroy(this.gameObject);
+            }
         }
+        else
+        {
+            ContinousPanel.SetActive(false);
+        }
+
+        // if(SceneManager.GetActiveScene().name != "GeneratingRandomSeedScene"){Destroy(this.gameObject);} 
     }
+
+    //  void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    // {
+    //     Debug.Log(scene.name);
+    //     if(this.gameObject.name == "KeepTesting" && scene.name != "GeneratingRandomSeedScene")
+    //     {Destroy(this.gameObject);}
+    //     if(this.gameObject.name == "ObjectIndicatingContinousTests" && scene.name != "SeedEnteringScene")
+    //     {Destroy(this.gameObject);}
+    // }
+
     public void Continous()
     {
         if(testContinous == false)
@@ -44,8 +64,16 @@ public class ContinousTests : MonoBehaviour
         }
     }
 
-    public void retryforContinuity()
+    public void SeedAccepted()
     {
+        if(testContinous == true)
+        {
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
+    public void RetryforContinuity()
+    {
+        gameObject.name = "KeepTesting";
         SceneManager.LoadScene("GeneratingRandomSeedScene");
 
     }

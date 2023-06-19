@@ -21,7 +21,10 @@ public class SeedHolderScript : MonoBehaviour
             SeedHolderScript SeedHolderToExtractSeedFrom = preExistingSeedHolder.GetComponent<SeedHolderScript>();
             seed = SeedHolderToExtractSeedFrom.seed;    
             Destroy(preExistingSeedHolder);
-            SeedStringInput.transform.Find("Text Area").transform.Find("Placeholder").GetComponent<TMP_Text>().text = seed;
+            if(SeedStringInput != null)
+            {
+                SeedStringInput.transform.Find("Text Area").transform.Find("Placeholder").GetComponent<TMP_Text>().text = seed;
+            }
             // ownsSeed = true;
         }
     }

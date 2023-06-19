@@ -36,6 +36,8 @@ public class TestSupervisingScript : MonoBehaviour
     public bool timeForNextCheck = false;
     public bool canGetNewMove = true;
     public bool finishedSearching = false;
+    public bool levelIsSolvable = false;
+    public bool solvingContonously = false;
     string solutionSequenceString = null;
     string bestSolutionSequenceString = null;
     char character = '0';
@@ -53,6 +55,18 @@ public class TestSupervisingScript : MonoBehaviour
 
         Player = LevelTestGeneratorScript.players[0];
         PlayerTesting = Player.GetComponent<PlayerTesting>();
+
+        GameObject ContinousTester = GameObject.Find("ObjectIndicatingContinousTests");
+        if(ContinousTester != null)
+        {
+            Debug.Log("Contonous Tester");
+            if(ContinousTester.GetComponent<ContinousTests>().testContinous == true)
+            {
+                Debug.Log("Testing Continously");
+                solvingContonously = true;
+            }
+
+        }
     }
     void Update()
     {
@@ -61,7 +75,7 @@ public class TestSupervisingScript : MonoBehaviour
         
         if(canGetNewMove && finishedSearching == false && Player!=null)
         {
-            Debug.Log("HighestChanged: " + highestChanged);
+            
             if(highestChanged >= minTurnsToFinish)
             {
                 AllPossibilitiesChecked();
@@ -101,15 +115,8 @@ public class TestSupervisingScript : MonoBehaviour
         {
             Debug.Log("Brak możliwości rozwiązania");
             finishedSearching = true;
-            GameObject ContinousTester = GameObject.Find("ObjectIndicatingContinousTests");
-            if(ContinousTester != null)
-            {
-                if(ContinousTester.GetComponent<ContinousTests>().testContinous == true)
-                {
-                    ContinousTester.GetComponent<ContinousTests>().retryforContinuity();
-                }
-            }
             ChangeTestingText(true);
+            NeedToContinueTesting(solvingContonously);
             return;
         }
         // bool nextOneToChange = false;
@@ -182,6 +189,7 @@ public class TestSupervisingScript : MonoBehaviour
 
     public void SolutionFound(int turnsToFinish)
     {
+        levelIsSolvable = true;
         minTurnsToFinish = turnsToFinish;
         minMoves = move;
 
@@ -215,24 +223,32 @@ public class TestSupervisingScript : MonoBehaviour
 
     public void AllPossibilitiesChecked()
     {
-        finishedSearching = true;
-
-        
+        finishedSearching = true;        
         ChangeTestingText(true);
-        Debug.Log("------------------------");
-        Debug.Log("ALL POSIBILITIES CHECKED");
-        Debug.Log("SEED:");
-        Debug.Log(LevelTestGeneratorScript.seed);
-        Debug.Log("First unchanged character: " + highestChanged);
-        Debug.Log("Minimum number of moves to solve: " + minMoves);
-        Debug.Log("BEST SOLUTION:");
-        Debug.Log(bestSolutionSequenceString);
-        RequiredTurns.text = minTurnsToFinish.ToString();
-        RequiredMoves.text = minMoves.ToString();
-        SolutionToCopy.text = solutionSequenceString;
 
-        
-        
+        if(levelIsSolvable)
+        {
+            Debug.Log("------------------------");
+            Debug.Log("ALL POSIBILITIES CHECKED");
+            Debug.Log("SEED:");
+            Debug.Log(LevelTestGeneratorScript.seed);
+            Debug.Log("First unchanged character: " + highestChanged);
+            Debug.Log("Minimum number of moves to solve: " + minMoves);
+            Debug.Log("BEST SOLUTION:");
+            Debug.Log(bestSolutionSequenceString);
+            RequiredTurns.text = minTurnsToFinish.ToString();
+            RequiredMoves.text = minMoves.ToString();
+            SolutionToCopy.text = solutionSequenceString;
+        }
+        else
+        {
+            Debug.Log("------------------------");
+            Debug.Log("ALL POSIBILITIES CHECKED");
+            Debug.Log("SEED:");
+            Debug.Log(LevelTestGeneratorScript.seed);
+            Debug.Log("No solution found within 2 turns");
+            NeedToContinueTesting(solvingContonously);
+        }
         
     }
 
@@ -262,6 +278,21 @@ public class TestSupervisingScript : MonoBehaviour
         else if(done == true)
         {
             TestingStatus.text = "DONE";
+        }
+    }
+
+    public void NeedToContinueTesting(bool continueTests)
+    {
+        if(continueTests)
+        {
+            GameObject ContinousTester = GameObject.Find("ObjectIndicatingContinousTests");
+            if(ContinousTester != null)
+            {
+                if(ContinousTester.GetComponent<ContinousTests>().testContinous == true)
+                {
+                    ContinousTester.GetComponent<ContinousTests>().RetryforContinuity();
+                }
+            }
         }
     }
     
