@@ -122,6 +122,8 @@ MonoBehaviour:
   objects: []
   LevelGenerator: {fileID: 0}
   LevelTestSupervisorObject: {fileID: 0}
+  TurnCounter: {fileID: 0}
+  turn: 0
   targetFieldPosition: {x: 0, y: 0}
   dir: 
   heldKeys: 0

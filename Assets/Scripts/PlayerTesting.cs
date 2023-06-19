@@ -17,7 +17,8 @@ public class PlayerTesting : MonoBehaviour
     [SerializeField] public GameObject LevelTestSupervisorObject;
     [SerializeField] public GameObject TurnCounter;
 
-
+    public int turn = 0;
+    
     public Vector2 targetFieldPosition;
     public string dir = null;
     public int heldKeys = 0;
@@ -37,6 +38,8 @@ public class PlayerTesting : MonoBehaviour
         TestSupervisingScript  = LevelTestSupervisorObject.GetComponent<TestSupervisingScript>();
         ElementCoordinates = GetComponent<ElementCoordinates>();
         
+        
+
         TableNumberX = ElementCoordinates.TableNumberX;
         TableNumberY = ElementCoordinates.TableNumberY;
         TableNumberX_toCheck = TableNumberX;
@@ -91,6 +94,7 @@ public class PlayerTesting : MonoBehaviour
     public void GoRight()
     {
         dir = "right";
+        
     }
     public void GoLeft()
     {
@@ -129,18 +133,21 @@ public class PlayerTesting : MonoBehaviour
                         objects = LevelGeneratorScript.levelObjects;
                         foreach(GameObject levelObject in objects)
                         {
-                            ElementCoordinates objectElementCoorinates = levelObject.GetComponent<ElementCoordinates>();
-                            ElementTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTypeInterface>();
-                            if(objectElementTypeInterface.isEnemy == true && objectElementCoorinates.TableNumberX == TableNumberX_toCheck && objectElementCoorinates.TableNumberY == TableNumberY_toCheck)
+                            if(levelObject != null)
                             {
-                                // Destroy(levelObject);
-                                objectElementTypeInterface.Push(dir);
-                                TurnCounterScript.TurnDown();
-                                TableNumberX_toCheck = TableNumberX;
-                                TableNumberY_toCheck = TableNumberY;
-                                TestSupervisingScript.canGetNewMove = true;
-                                break;
+                                ElementCoordinates objectElementCoorinates = levelObject.GetComponent<ElementCoordinates>();
+                                ElementTestTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTestTypeInterface>();
+                                if(objectElementTypeInterface.isEnemy == true && objectElementCoorinates.TableNumberX == TableNumberX_toCheck && objectElementCoorinates.TableNumberY == TableNumberY_toCheck)
+                                {
+                                    // Destroy(levelObject);
+                                    objectElementTypeInterface.Push(dir);
+                                    TurnCounterScript.TurnDown();
+                                    TableNumberX_toCheck = TableNumberX;
+                                    TableNumberY_toCheck = TableNumberY;
+                                    TestSupervisingScript.canGetNewMove = true;
+                                    break;
 
+                                }
                             }
                         }
                     }
@@ -149,17 +156,20 @@ public class PlayerTesting : MonoBehaviour
                         objects = LevelGeneratorScript.levelObjects;
                         foreach(GameObject levelObject in objects)
                         {
-                            ElementCoordinates objectElementCoorinates = levelObject.GetComponent<ElementCoordinates>();
-                            ElementTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTypeInterface>();
-                            if(objectElementTypeInterface.isRock == true && objectElementCoorinates.TableNumberX == TableNumberX_toCheck && objectElementCoorinates.TableNumberY == TableNumberY_toCheck)
+                            if(levelObject != null)
                             {
-                                // Destroy(levelObject);
-                                objectElementTypeInterface.Push(dir);
-                                TurnCounterScript.TurnDown();
-                                TableNumberX_toCheck = TableNumberX;
-                                TableNumberY_toCheck = TableNumberY;
-                                TestSupervisingScript.canGetNewMove = true;
-                                break;
+                                ElementCoordinates objectElementCoorinates = levelObject.GetComponent<ElementCoordinates>();
+                                ElementTestTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTestTypeInterface>();
+                                if(objectElementTypeInterface.isRock == true && objectElementCoorinates.TableNumberX == TableNumberX_toCheck && objectElementCoorinates.TableNumberY == TableNumberY_toCheck)
+                                {
+                                    // Destroy(levelObject);
+                                    objectElementTypeInterface.Push(dir);
+                                    TurnCounterScript.TurnDown();
+                                    TableNumberX_toCheck = TableNumberX;
+                                    TableNumberY_toCheck = TableNumberY;
+                                    TestSupervisingScript.canGetNewMove = true;
+                                    break;
+                                }
                             }
                         }
                     }
@@ -168,18 +178,21 @@ public class PlayerTesting : MonoBehaviour
                         objects = LevelGeneratorScript.levelObjects;
                         foreach(GameObject levelObject in objects)
                         {
-                            ElementCoordinates objectElementCoorinates = levelObject.GetComponent<ElementCoordinates>();
-                            ElementTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTypeInterface>();
-                            if(objectElementTypeInterface.isKey == true && objectElementCoorinates.TableNumberX == TableNumberX_toCheck && objectElementCoorinates.TableNumberY == TableNumberY_toCheck)
+                            if(levelObject != null)
                             {
-                                Destroy(levelObject);
-                                heldKeys++;
-                                TableNumberX = TableNumberX_toCheck;
-                                TableNumberY = TableNumberY_toCheck;
-                                targetFieldPosition = new Vector2(fieldElementCoorinates.positionX, fieldElementCoorinates.positionY);
-                                needToMove = true;
-                                TurnCounterScript.TurnDown();
-                                break;
+                                ElementCoordinates objectElementCoorinates = levelObject.GetComponent<ElementCoordinates>();
+                                ElementTestTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTestTypeInterface>();
+                                if(objectElementTypeInterface.isKey == true && objectElementCoorinates.TableNumberX == TableNumberX_toCheck && objectElementCoorinates.TableNumberY == TableNumberY_toCheck)
+                                {
+                                    Destroy(levelObject);
+                                    heldKeys++;
+                                    TableNumberX = TableNumberX_toCheck;
+                                    TableNumberY = TableNumberY_toCheck;
+                                    targetFieldPosition = new Vector2(fieldElementCoorinates.positionX, fieldElementCoorinates.positionY);
+                                    needToMove = true;
+                                    TurnCounterScript.TurnDown();
+                                    break;
+                                }
                             }
                         }
                     }
@@ -198,6 +211,7 @@ public class PlayerTesting : MonoBehaviour
                         TableNumberX = TableNumberX_toCheck;
                         TableNumberY = TableNumberY_toCheck;
                         targetFieldPosition = new Vector2(fieldElementCoorinates.positionX, fieldElementCoorinates.positionY);
+                        transform.position = targetFieldPosition;
                         needToMove = true;
                         TurnCounterScript.TurnDown();
                         return;
@@ -208,7 +222,10 @@ public class PlayerTesting : MonoBehaviour
                     if(heldKeys == LevelGeneratorScript.keys)
                     {
                         Debug.Log("Poziom ukończony");
-                        TestSupervisingScript.SolutionFound();
+                        TurnCounterScript.TurnDown();
+                        int turnsToFinish = TurnCounterScript.GetTurns();
+                        TestSupervisingScript.SolutionFound(turnsToFinish);
+                        Debug.Log("Znalazłem solucję w " + turnsToFinish + " tur");
                         
                     }
                     else

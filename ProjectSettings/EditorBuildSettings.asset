@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SeedTestingScene.unity
     guid: 356dba8b6378ac44c94b0f64da098c2f
+  - enabled: 1
+    path: Assets/Scenes/GeneratingRandomSeedScene.unity
+    guid: 390646c4b4c4d43438d9796054eea842
   m_configObjects: {}

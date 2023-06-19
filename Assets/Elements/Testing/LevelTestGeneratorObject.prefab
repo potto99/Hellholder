@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8869087136762491148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8869087136762491121}
+  - component: {fileID: 8869087136762491123}
+  - component: {fileID: 8869087136762491120}
+  m_Layer: 0
+  m_Name: LevelTestGeneratorObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8869087136762491121
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8869087136762491148}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -29.203268, y: 1.1699705, z: -1.2415276}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8869087136762491123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8869087136762491148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf60e7805f3507544a387ecfdb135d91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8869087136762491120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8869087136762491148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df35b3a5742a5f04a8220472a7692727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 2394463236323200988, guid: 150dc239b68666d4ebaa3df5563a68d9, type: 3}
+  beginningField: {fileID: 4694362479061551595, guid: 002e803c16a4ed14db9d3f1917f46277, type: 3}
+  field: {fileID: 8220934109329472373, guid: e3d4b60d482b2244a90abc1448ed7ab0, type: 3}
+  wall: {fileID: 2509553162051723862, guid: d0c201e7b42984542a507633d41557d0, type: 3}
+  rock: {fileID: 704710361065557774, guid: 4de882a1cfe01914d8e08bea8333e6ea, type: 3}
+  spike: {fileID: 507375102242439550, guid: e5b404172552e0846a31bb3c311f7cc7, type: 3}
+  enemy: {fileID: 9160891138060449964, guid: b1fb176fd546857408e76282b55fce83, type: 3}
+  key: {fileID: 3586962715460476817, guid: a682673503c921d4db55b6e5ebad66d8, type: 3}
+  door: {fileID: 6114434514894392746, guid: e25bcf3eca21c1c46b425499ff32096b, type: 3}
+  seed: 
+  levelObjects: []
+  fields: []
+  players: []
+  placingObject: {fileID: 0}
+  placingPlayer: {fileID: 0}
+  SeedHolder: {fileID: 0}
+  keys: 0

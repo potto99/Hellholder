@@ -6,18 +6,26 @@ using TMPro;
 public class TestSupervisingScript : MonoBehaviour
 {
     [SerializeField] public TMP_Text TestingStatus;
+    [SerializeField] public TMP_InputField SeedToCopy;
+    [SerializeField] public TMP_Text RequiredMoves;
+    [SerializeField] public TMP_Text RequiredTurns;
+    [SerializeField] public TMP_InputField SolutionToCopy;
     int testingTextCount = 1;
     // string movementSequence = "dddddddddddddddddddddddddddddddddddddddd";
     char[] movementSequence = new char[] {'d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d'};
 
     
+    
 
-
-    public int turn = 0;
+    public int move = 0;
     public int minMoves = 40;
+    public int minTurnsToFinish = 40;
+    public int bestSolutionMoves = 40;
+    public int bestSolutionTurns = 40;
     public int highestChanged = 0;
     public int currentlyVariablePlace = 0;
     public int iteraionOfVariable = 1;
+    GameObject LevelTestGenerator;
     [SerializeField] GameObject LevelTestGeneratorObject;
     [SerializeField] LevelTestGeneratorScript LevelTestGeneratorScript;
     [SerializeField] GameObject TurnCounter;
@@ -28,17 +36,22 @@ public class TestSupervisingScript : MonoBehaviour
     public bool timeForNextCheck = false;
     public bool canGetNewMove = true;
     public bool finishedSearching = false;
+    string solutionSequenceString = null;
+    string bestSolutionSequenceString = null;
     char character = '0';
 
     void Start()
     {
+        
         LevelTestGeneratorObject = GameObject.Find("LevelTestGeneratorObject");
+        // LevelTestGenerator = Instantiate(LevelTestGeneratorObject);
         LevelTestGeneratorScript = LevelTestGeneratorObject.GetComponent<LevelTestGeneratorScript>();
+        SeedToCopy.text = LevelTestGeneratorScript.seed;
 
         TurnCounter = GameObject.Find("TurnCounter");
         TurnCounterScript = TurnCounter.GetComponent<TurnTestCounterScript>();
 
-        Player =  LevelTestGeneratorScript.players[0];
+        Player = LevelTestGeneratorScript.players[0];
         PlayerTesting = Player.GetComponent<PlayerTesting>();
     }
     void Update()
@@ -46,24 +59,27 @@ public class TestSupervisingScript : MonoBehaviour
         
        
         
-        if(canGetNewMove && finishedSearching == false)
+        if(canGetNewMove && finishedSearching == false && Player!=null)
         {
-            
-            if(highestChanged > minMoves)
+            Debug.Log("HighestChanged: " + highestChanged);
+            if(highestChanged >= minTurnsToFinish)
             {
                 AllPossibilitiesChecked();
                 canGetNewMove = false;
                 return;
             }
             // Debug.Log(turn);
-            character = movementSequence[turn];
+            
+            character = movementSequence[move];
+            
+            
             if(character == 'd'){PlayerTesting.GoRight(); canGetNewMove = false;}
             else if(character == 'w'){PlayerTesting.GoUp(); canGetNewMove = false;}
             else if(character == 's'){PlayerTesting.GoDown(); canGetNewMove = false;}
             else if(character == 'a'){PlayerTesting.GoLeft(); canGetNewMove = false;}
-            turn++;
+            move++;
             // Debug.Log(turn);
-            if(turn >= minMoves){ChangeSequence();}
+            if(move >= minTurnsToFinish){ChangeSequence();}
             
         }
     }
@@ -73,15 +89,32 @@ public class TestSupervisingScript : MonoBehaviour
         ChangeTestingText(false);
         
         string movementSequenceString = new string(movementSequence);
+        
+        //---------możesz to wykorzystać do testów continous tests------------
+        // char[] tmpCheck = new char[3];
+        // tmpCheck[0] = movementSequence[0];
+        // tmpCheck[1] = movementSequence[1];
+        // tmpCheck[2] = movementSequence[2];
+        // string tmpCheckString = new string(tmpCheck);
+        // if(tmpCheckString == "aaa")
         if(movementSequenceString == "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         {
             Debug.Log("Brak możliwości rozwiązania");
-            AllPossibilitiesChecked();
+            finishedSearching = true;
+            GameObject ContinousTester = GameObject.Find("ObjectIndicatingContinousTests");
+            if(ContinousTester != null)
+            {
+                if(ContinousTester.GetComponent<ContinousTests>().testContinous == true)
+                {
+                    ContinousTester.GetComponent<ContinousTests>().retryforContinuity();
+                }
+            }
+            ChangeTestingText(true);
             return;
         }
         // bool nextOneToChange = false;
         // char i;
-        turn = 0;
+        move = 0;
         // i = movementSequence[currentlyVariablePlace];
         
        
@@ -124,27 +157,57 @@ public class TestSupervisingScript : MonoBehaviour
 
         
         movementSequenceString = new string(movementSequence);
-        Debug.Log("Sprawdzam dla: " + movementSequenceString);
-
+        // Debug.Log("Sprawdzam dla: " + movementSequenceString);
+        Debug.Log("Check: "+movementSequenceString);
         //Resetowanie poziomu
 
         LevelTestGeneratorScript.Purge();
-        TurnCounterScript.movesLeft = 40;
-        LevelTestGeneratorScript.Start();
+        TurnCounterScript.turnsLeft = 40;
+        // LevelTestGeneratorScript.Start();
+        LevelTestGeneratorScript.InitializeLevelObjects();
+        // Destroy(LevelTestGenerator);
+        // LevelTestGenerator = Instantiate(LevelTestGeneratorObject);
+        // TurnCounterScript.Start();
+        // LevelTestGeneratorScript = LevelTestGenerator.GetComponent<LevelTestGeneratorScript>();
 
+    
         Player =  LevelTestGeneratorScript.players[0];
         PlayerTesting = Player.GetComponent<PlayerTesting>();
 
+        
         canGetNewMove = true;
 
 
     }
 
-    public void SolutionFound()
+    public void SolutionFound(int turnsToFinish)
     {
-        minMoves = turn-1;
-        string movementSequenceString = new string(movementSequence);
-        Debug.Log("Nowa solucja: " + movementSequenceString);
+        minTurnsToFinish = turnsToFinish;
+        minMoves = move;
+
+        if(minTurnsToFinish <= bestSolutionTurns)
+        {
+            bestSolutionTurns = minTurnsToFinish;
+            bestSolutionMoves = minMoves;
+            char[] bestSolutionSequence = new char[minMoves];
+            for(int s = 0; s < minMoves; s++ )
+            {
+                bestSolutionSequence[s] = movementSequence[s];
+            }
+            bestSolutionSequenceString = new string(bestSolutionSequence);
+        } 
+
+        
+        Debug.Log("Turns: " + turnsToFinish);
+        Debug.Log("minMoves: " + minMoves);
+        char[] solutionSequence = new char[minMoves];
+        for(int s = 0; s < minMoves; s++ )
+        {
+            solutionSequence[s] = movementSequence[s];
+        }
+
+        solutionSequenceString = new string(solutionSequence);
+        Debug.Log("Nowa solucja: " + solutionSequenceString);
         
         ChangeSequence();
         // Debug.Log(movementSequenceString);
@@ -152,11 +215,25 @@ public class TestSupervisingScript : MonoBehaviour
 
     public void AllPossibilitiesChecked()
     {
-        ChangeTestingText(true);
-        Debug.Log("Wszystkie opcje sprawdzone");
-        Debug.Log("HighestChanged: " + highestChanged);
-        Debug.Log("MinMoves: " + minMoves);
         finishedSearching = true;
+
+        
+        ChangeTestingText(true);
+        Debug.Log("------------------------");
+        Debug.Log("ALL POSIBILITIES CHECKED");
+        Debug.Log("SEED:");
+        Debug.Log(LevelTestGeneratorScript.seed);
+        Debug.Log("First unchanged character: " + highestChanged);
+        Debug.Log("Minimum number of moves to solve: " + minMoves);
+        Debug.Log("BEST SOLUTION:");
+        Debug.Log(bestSolutionSequenceString);
+        RequiredTurns.text = minTurnsToFinish.ToString();
+        RequiredMoves.text = minMoves.ToString();
+        SolutionToCopy.text = solutionSequenceString;
+
+        
+        
+        
     }
 
     public void ChangeTestingText(bool done)

@@ -9,7 +9,7 @@ public class SeedHolderScript : MonoBehaviour
 {
     [SerializeField] public TMP_InputField SeedStringInput;
     public string seed;
-    public bool ownsSeed = false;
+    // public bool ownsSeed = false;
 
     void Start()
     {
@@ -22,16 +22,16 @@ public class SeedHolderScript : MonoBehaviour
             seed = SeedHolderToExtractSeedFrom.seed;    
             Destroy(preExistingSeedHolder);
             SeedStringInput.transform.Find("Text Area").transform.Find("Placeholder").GetComponent<TMP_Text>().text = seed;
-            ownsSeed = true;
+            // ownsSeed = true;
         }
     }
 
     public void acceptSeed()
     {
         bool seedCorrect = true;
+        if(SeedStringInput.text.Length != 0){seed = SeedStringInput.text;}
         if(seed.Length <= 100)
         {
-            if(ownsSeed == false){seed = SeedStringInput.text;}
             char character;
             for (int i = 0; i < seed.Length; i ++)
             {
@@ -62,9 +62,9 @@ public class SeedHolderScript : MonoBehaviour
     public void testSeed()
     {
         bool seedCorrect = true;
+        if(SeedStringInput != null){if(SeedStringInput.text.Length != 0){seed = SeedStringInput.text;}}
         if(seed.Length <= 100)
         {
-            if(ownsSeed == false){seed = SeedStringInput.text;}
             char character;
             for (int i = 0; i < seed.Length; i ++)
             {

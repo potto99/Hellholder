@@ -5,7 +5,7 @@ using TMPro;
 
 public class RandomSeedGenerator : MonoBehaviour
 {
-    char[] seed = new char[] {'f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f'};
+    char[] seed = new char[] {'f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f','f'};
     [SerializeField] TMP_Text seedText;
 
     public GameObject SeedHolder;
@@ -14,7 +14,7 @@ public class RandomSeedGenerator : MonoBehaviour
     {
         int randomPlayerPlacement = 0;
         int randomDoorPlacement = 0;
-        for (int i=0; i<40; i++) //Losowo stawiamy puste pola, kamienie, ściany, spike'i różnych typów i przeciwników. Wszystkie z tym samym prawdopodobieństwiem
+        for (int i=0; i<seed.Length; i++) //Losowo stawiamy puste pola, kamienie, ściany, spike'i różnych typów i przeciwników. Wszystkie z tym samym prawdopodobieństwiem
         {
             int randomElement = Random.Range(1, 8);
             if(randomElement == 1){seed[i] = 'f';}
@@ -29,14 +29,14 @@ public class RandomSeedGenerator : MonoBehaviour
         int setKey = Random.Range(1,3); //50% szans, że poziom będzie posiadał klucz 
         if(setKey == 2)
         {
-            int randomKeyPLacement = Random.Range(0, 41);
+            int randomKeyPLacement = Random.Range(0, 100);
             seed[randomKeyPLacement] = 'k';
         }
 
         do
         { 
-            randomPlayerPlacement = Random.Range(0, 41);
-            randomDoorPlacement = Random.Range(0, 41);
+            randomPlayerPlacement = Random.Range(0, 100);
+            randomDoorPlacement = Random.Range(0, 100);
         }while (randomPlayerPlacement == randomDoorPlacement);
 
         seed[randomPlayerPlacement] = 'b';
@@ -49,7 +49,7 @@ public class RandomSeedGenerator : MonoBehaviour
         SeedHolder = GameObject.Find("SeedHolder");
         SeedHolderScript = SeedHolder.GetComponent<SeedHolderScript>();
         SeedHolderScript.seed = seedString;
-        SeedHolderScript.ownsSeed = true;
+        // SeedHolderScript.ownsSeed = true;
 
 
     }

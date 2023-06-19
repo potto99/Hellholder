@@ -5,14 +5,15 @@ using TMPro;
 
 public class TurnTestCounterScript : MonoBehaviour
 {
-    [SerializeField] public int movesLeft;
+    
+    [SerializeField] public int turnsLeft;
     [SerializeField] public TMP_Text Turns;
     [SerializeField] GameObject LevelGeneratorObject;
     [SerializeField] LevelTestGeneratorScript LevelGeneratorScript;
     [SerializeField] public List<GameObject> fields;
-    void Start()
+    public void Start()
     {
-        movesLeft = 40;
+        turnsLeft = 40;
         LevelGeneratorObject = GameObject.Find("LevelTestGeneratorObject");
         LevelGeneratorScript = LevelGeneratorObject.GetComponent<LevelTestGeneratorScript>();
         fields = LevelGeneratorScript.fields;
@@ -21,7 +22,7 @@ public class TurnTestCounterScript : MonoBehaviour
 
     public void TurnDown()
     {
-        movesLeft--;
+        turnsLeft--;
         // Turns.text = movesLeft.ToString();
         fields.TrimExcess();
         foreach(GameObject field in fields)
@@ -29,16 +30,26 @@ public class TurnTestCounterScript : MonoBehaviour
             ElementTestTypeInterface ElementTypeInterface = field.GetComponent<ElementTestTypeInterface>();
             if(ElementTypeInterface.isChangableSpike){ElementTypeInterface.ChangeSpikeState();}
         }
+
+        if(turnsLeft < 0)
+        {
+            Debug.Log("All moves used");
+        }
     }
 
     public void SpikeTurnLoss()
     {
-        movesLeft--;
+        turnsLeft--;
         // Turns.text = movesLeft.ToString();
-        if(movesLeft < 0)
+        if(turnsLeft < 0)
         {
-            Debug.Log("Przegrałeś");
+            Debug.Log("All moves used");
         }
+    }
+
+    public int GetTurns()
+    {
+        return 40-turnsLeft;
     }
 
 }

@@ -5,7 +5,7 @@ using TMPro;
 
 public class TurnCounterScript : MonoBehaviour
 {
-    [SerializeField] int movesLeft;
+    [SerializeField] public int movesLeft;
     [SerializeField] public TMP_Text Turns;
     [SerializeField] GameObject LevelGeneratorObject;
     [SerializeField] LevelGeneratorScript LevelGeneratorScript;
@@ -29,6 +29,11 @@ public class TurnCounterScript : MonoBehaviour
             ElementTypeInterface ElementTypeInterface = field.GetComponent<ElementTypeInterface>();
             if(ElementTypeInterface.isChangableSpike){ElementTypeInterface.ChangeSpikeState();}
         }
+
+        if(movesLeft < 0)
+        {
+            Debug.Log("Przegrałeś");
+        }
     }
 
     public void SpikeTurnLoss()
@@ -40,5 +45,7 @@ public class TurnCounterScript : MonoBehaviour
             Debug.Log("Przegrałeś");
         }
     }
+
+    
 
 }

@@ -75,6 +75,7 @@ public class LevelGeneratorScript : MonoBehaviour
                 fields.Add(placingObject);
                 addCoordinates(placingObject, i);
                 placingObject.GetComponent<ElementTypeInterface>().ActivateSpike();
+                placingObject.GetComponent<ElementTypeInterface>().isChangableSpike = false;
 
             }
             else if(character.ToString() == "s") //changable active spike

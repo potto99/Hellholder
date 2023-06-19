@@ -42,32 +42,7 @@ public class ElementTestTypeInterface : MonoBehaviour
 
     void Update()
     {
-        if(needsToMove)
-        {
-            transform.position = Vector2.MoveTowards(transform.position, targetFieldPosition, 2f);
-
-            if(Math.Abs(transform.position.x - targetFieldPosition.x) < 1 && Math.Abs(transform.position.y - targetFieldPosition.y) < 1)
-            {
-                if(isEnemy)
-                {
-                    List<GameObject> fields = LevelGeneratorScript.fields;
-                    foreach(GameObject field in fields)
-                    {
-                        ElementCoordinates fieldElementCoorinates = field.GetComponent<ElementCoordinates>();
-                        if(fieldElementCoorinates.TableNumberX == myElementCoordinates.TableNumberX && fieldElementCoorinates.TableNumberY == myElementCoordinates.TableNumberY)
-                        {
-                            ElementTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTypeInterface>();
-                            if(fieldElementTypeInterface.isSpikeActive == true)
-                            {
-                                needsToMove = false;
-                                Destroy(gameObject);
-                            }
-                        }
-                    }
-                }
-                needsToMove = false;
-            }
-        }
+        
     }
     
     
@@ -91,24 +66,29 @@ public class ElementTestTypeInterface : MonoBehaviour
         spriteRenderer.sprite = activeSprite;
         if(isTakenByEnemy)
         {
+
             List<GameObject> levelObjects = LevelGeneratorScript.levelObjects;
             foreach(GameObject levelObject in levelObjects)
             {
-                ElementTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTypeInterface>();
-                if(objectElementTypeInterface.isEnemy == true)
+                if(levelObject != null)
                 {
-                    ElementCoordinates enemyCoordinates = levelObject.GetComponent<ElementCoordinates>();
-                    if(enemyCoordinates.TableNumberX == myElementCoordinates.TableNumberX && enemyCoordinates.TableNumberY == myElementCoordinates.TableNumberY)
+                    ElementTestTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTestTypeInterface>();
+                    if(objectElementTypeInterface.isEnemy == true)
                     {
-                        Destroy(levelObject);
-                        break;
+                        ElementCoordinates enemyCoordinates = levelObject.GetComponent<ElementCoordinates>();
+                        if(enemyCoordinates.TableNumberX == myElementCoordinates.TableNumberX && enemyCoordinates.TableNumberY == myElementCoordinates.TableNumberY)
+                        {
+                            Destroy(levelObject);
+                            isTakenByEnemy = false;
+                            break;
+                        }
+                    
                     }
-                
                 }
             }
         }
 
-        // transform.Rotate(0, 0, 45, Space.World);
+        
     }
     public void DeactivateSpike()
     {
@@ -116,7 +96,7 @@ public class ElementTestTypeInterface : MonoBehaviour
         isSpikeActive = false;
         spriteRenderer.sprite = inactiveSprite;
 
-        // transform.Rotate(0, 0, -45, Space.World);
+       
         
     }
 
@@ -135,7 +115,7 @@ public class ElementTestTypeInterface : MonoBehaviour
             ElementCoordinates fieldCoordinates = field.GetComponent<ElementCoordinates>();
             if(fieldCoordinates.TableNumberX == TableNumberX_toCheck && fieldCoordinates.TableNumberY == TableNumberY_toCheck)
             {
-                ElementTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTypeInterface>();
+                ElementTestTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTestTypeInterface>();
                 if(fieldElementTypeInterface.isTakenByEnemy == false && fieldElementTypeInterface.isTakenByRock == false && fieldElementTypeInterface.isWall == false && fieldElementTypeInterface.isDoor == false)
                 {
                     // W przyszłości trzeba tu też sprawdzać, czy spike jest aktywny
@@ -146,13 +126,25 @@ public class ElementTestTypeInterface : MonoBehaviour
                     myElementCoordinates.TableNumberY = TableNumberY_toCheck;
                     targetFieldPosition = new Vector2(fieldCoordinates.positionX, fieldCoordinates.positionY);
                     
-                    needsToMove = true;
+        
+                    transform.position = targetFieldPosition;
+                    if(isEnemy)
+                    {   
+                        if((fieldElementTypeInterface.isChangableSpike == false && fieldElementTypeInterface.isSpikeActive == true) || (fieldElementTypeInterface.isChangableSpike == true && fieldElementTypeInterface.isSpikeActive == false))
+                        {
+                            ReleaseBeforeDestroying();
+                            Destroy(gameObject);
+                        }   
+                        
+                    }
+           
 
                 }
                 else
                 {
                     if(isEnemy)
                     {
+                        ReleaseBeforeDestroying();
                         Destroy(gameObject);
                     }
                 }
@@ -166,50 +158,93 @@ public class ElementTestTypeInterface : MonoBehaviour
         List<GameObject> fieldsToRelease = LevelGeneratorScript.fields;
         foreach(GameObject field in fieldsToRelease)
         {
-            ElementCoordinates fieldToReleaseElementCoordinates = field.GetComponent<ElementCoordinates>();
-            if(fieldToReleaseElementCoordinates.TableNumberX == X_toRelease && fieldToReleaseElementCoordinates.TableNumberY == Y_toRelease)
+            if(field!=null) //Warunek potrzebny, żeby silnik nie płakał błędami w trakcie wychodzenia z testu
             {
-                ElementTypeInterface fieldToReleaseElementTypeInterface = field.GetComponent<ElementTypeInterface>();
-                if(isEnemy == true){fieldToReleaseElementTypeInterface.isTakenByEnemy = false;}
-                else if(isRock == true){fieldToReleaseElementTypeInterface.isTakenByRock = false;}
-                
+                ElementCoordinates fieldToReleaseElementCoordinates = field.GetComponent<ElementCoordinates>();
+                if(fieldToReleaseElementCoordinates.TableNumberX == X_toRelease && fieldToReleaseElementCoordinates.TableNumberY == Y_toRelease)
+                {
+                    ElementTestTypeInterface fieldToReleaseElementTypeInterface = field.GetComponent<ElementTestTypeInterface>();
+                    if(isEnemy == true){fieldToReleaseElementTypeInterface.isTakenByEnemy = false;}
+                    else if(isRock == true){fieldToReleaseElementTypeInterface.isTakenByRock = false;}
+                    
+                }
             }
         }
     }
 
 
-    void OnDestroy()
+    
+    void ReleaseBeforeDestroying()
     {
+        {
         LevelGeneratorScript.levelObjects.Remove(this.gameObject);
         LevelGeneratorScript.levelObjects.TrimExcess();
         if(isEnemy)
         {
-            List<GameObject> fields = LevelGeneratorScript.fields; 
-            foreach(GameObject field in fields)
-            {
-                ElementCoordinates fieldCoordinates = field.GetComponent<ElementCoordinates>();
-                
-                if(fieldCoordinates.TableNumberX == myElementCoordinates.TableNumberX && fieldCoordinates.TableNumberY == myElementCoordinates.TableNumberY)
-                {
-                    ElementTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTypeInterface>();
-                    fieldElementTypeInterface.isTakenByEnemy = false;
-                }
-            }
+
+            ReleasePreviousField(myElementCoordinates.TableNumberX, myElementCoordinates.TableNumberY);
         }
         if(isKey)
         {
             List<GameObject> fields = LevelGeneratorScript.fields; 
             foreach(GameObject field in fields)
             {
-                ElementCoordinates fieldCoordinates = field.GetComponent<ElementCoordinates>();
-                
-                if(fieldCoordinates.TableNumberX == myElementCoordinates.TableNumberX && fieldCoordinates.TableNumberY == myElementCoordinates.TableNumberY)
+                if(field != null) //Warunek potrzebny, żeby kompilator nie płakał błędami w trakcie wychodzenia z playtestu
                 {
-                    ElementTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTypeInterface>();
-                    fieldElementTypeInterface.isHoldingKey = false;
+                    ElementCoordinates fieldCoordinates = field.GetComponent<ElementCoordinates>();
+                    
+                    if(fieldCoordinates.TableNumberX == myElementCoordinates.TableNumberX && fieldCoordinates.TableNumberY == myElementCoordinates.TableNumberY)
+                    {
+                        ElementTestTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTestTypeInterface>();
+                        fieldElementTypeInterface.isHoldingKey = false;
+                    }
                 }
             }
         }
 
     }   
+    }
+    
+    // void OnDestroy()
+    // {
+    //     LevelGeneratorScript.levelObjects.Remove(this.gameObject);
+    //     LevelGeneratorScript.levelObjects.TrimExcess();
+    //     if(isEnemy)
+    //     {
+    //         // List<GameObject> fields = LevelGeneratorScript.fields; 
+    //         // foreach(GameObject field in fields)
+    //         // {
+    //         //     if(field != null) //Warunek potrzebny, żeby kompilator nie płakał błędami w trakcie wychodzenia z playtestu
+    //         //     {
+    //         //         ElementCoordinates fieldCoordinates = field.GetComponent<ElementCoordinates>();
+                    
+    //         //         if(fieldCoordinates.TableNumberX == myElementCoordinates.TableNumberX && fieldCoordinates.TableNumberY == myElementCoordinates.TableNumberY)
+    //         //         {
+    //         //             ElementTestTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTestTypeInterface>();
+    //         //             fieldElementTypeInterface.isTakenByEnemy = false;
+    //         //         }
+    //         //     }
+    //         // }
+
+    //         ReleasePreviousField(myElementCoordinates.TableNumberX, myElementCoordinates.TableNumberY);
+    //     }
+    //     if(isKey)
+    //     {
+    //         List<GameObject> fields = LevelGeneratorScript.fields; 
+    //         foreach(GameObject field in fields)
+    //         {
+    //             if(field != null) //Warunek potrzebny, żeby kompilator nie płakał błędami w trakcie wychodzenia z playtestu
+    //             {
+    //                 ElementCoordinates fieldCoordinates = field.GetComponent<ElementCoordinates>();
+                    
+    //                 if(fieldCoordinates.TableNumberX == myElementCoordinates.TableNumberX && fieldCoordinates.TableNumberY == myElementCoordinates.TableNumberY)
+    //                 {
+    //                     ElementTestTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTestTypeInterface>();
+    //                     fieldElementTypeInterface.isHoldingKey = false;
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    // }   
 }
