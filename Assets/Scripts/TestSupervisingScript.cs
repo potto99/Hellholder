@@ -93,9 +93,9 @@ public class TestSupervisingScript : MonoBehaviour
             else if(character == 's'){PlayerTesting.GoDown(); canGetNewMove = false;}
             else if(character == 'a'){PlayerTesting.GoLeft(); canGetNewMove = false;}
             move++;
-            // Debug.Log(turn);
-            if(move >= minTurnsToFinish){ChangeSequence();}
-            
+            if(move > minTurnsToFinish){ChangeSequence();}
+            // if(move >= minTurnsToFinish){ChangeSequence();}
+            // ^ To było wcześniej. Mam nadzieję że niczego tym nie spierdolę
         }
     }
 
