@@ -15,6 +15,7 @@ public class LevelTestGeneratorScript : MonoBehaviour
     [SerializeField] GameObject door;
 
     public string seed;
+    public int MaxMoves;
     public List<GameObject> levelObjects;
     public List<GameObject> fields;
     public List<GameObject> players;
@@ -42,6 +43,7 @@ public class LevelTestGeneratorScript : MonoBehaviour
         SeedHolder = GameObject.Find("SeedHolderDontDestroy");
         SeedHolderScript = SeedHolder.GetComponent<SeedHolderScript>();
         seed = SeedHolderScript.seed;
+        MaxMoves = SeedHolderScript.MaxMovesAllowed;
 
         char character;
         for (int i = 0; i < seed.Length; i++)

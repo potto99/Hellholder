@@ -2820,7 +2820,7 @@ MonoBehaviour:
   SolutionToCopy: {fileID: 1890763120}
   move: 0
   minMoves: 40
-  minTurnsToFinish: 40
+  minTurnsToFinish: 10
   bestSolutionMoves: 40
   bestSolutionTurns: 40
   highestChanged: 0
@@ -2946,6 +2946,7 @@ MonoBehaviour:
   key: {fileID: 3586962715460476817, guid: a682673503c921d4db55b6e5ebad66d8, type: 3}
   door: {fileID: 6114434514894392746, guid: e25bcf3eca21c1c46b425499ff32096b, type: 3}
   seed: 
+  MaxMoves: 0
   levelObjects: []
   fields: []
   players: []

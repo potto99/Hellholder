@@ -49,6 +49,7 @@ public class TestSupervisingScript : MonoBehaviour
         // LevelTestGenerator = Instantiate(LevelTestGeneratorObject);
         LevelTestGeneratorScript = LevelTestGeneratorObject.GetComponent<LevelTestGeneratorScript>();
         SeedToCopy.text = LevelTestGeneratorScript.seed;
+        minTurnsToFinish = LevelTestGeneratorScript.MaxMoves;
 
         TurnCounter = GameObject.Find("TurnCounter");
         TurnCounterScript = TurnCounter.GetComponent<TurnTestCounterScript>();
@@ -246,7 +247,7 @@ public class TestSupervisingScript : MonoBehaviour
             Debug.Log("ALL POSIBILITIES CHECKED");
             Debug.Log("SEED:");
             Debug.Log(LevelTestGeneratorScript.seed);
-            Debug.Log("No solution found within 2 turns");
+            Debug.Log("No solution found within " + minTurnsToFinish + "turns");
             NeedToContinueTesting(solvingContonously);
         }
         

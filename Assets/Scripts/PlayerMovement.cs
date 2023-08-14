@@ -186,6 +186,8 @@ public class PlayerMovement : MonoBehaviour
                     if(heldKeys == LevelGeneratorScript.keys)
                     {
                         Debug.Log("Poziom ukończony");
+                        TurnCounterScript.TurnDown();
+                        TurnCounterScript.DeclareWin();
                     }
                     else
                     {

@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class SeedHolderScript : MonoBehaviour
 {
     [SerializeField] public TMP_InputField SeedStringInput;
+    [SerializeField] public TMP_InputField MaxMovesAllowedInput;
     public string seed;
+    public int MaxMovesAllowed;
     // public bool ownsSeed = false;
 
     void Start()
@@ -19,12 +22,18 @@ public class SeedHolderScript : MonoBehaviour
         if(preExistingSeedHolder != null)
         {
             SeedHolderScript SeedHolderToExtractSeedFrom = preExistingSeedHolder.GetComponent<SeedHolderScript>();
-            seed = SeedHolderToExtractSeedFrom.seed;    
+            seed = SeedHolderToExtractSeedFrom.seed;
+            MaxMovesAllowed = SeedHolderToExtractSeedFrom.MaxMovesAllowed;    
             Destroy(preExistingSeedHolder);
             if(SeedStringInput != null)
             {
                 SeedStringInput.transform.Find("Text Area").transform.Find("Placeholder").GetComponent<TMP_Text>().text = seed;
             }
+            if(MaxMovesAllowedInput != null)
+            {
+                MaxMovesAllowedInput.transform.Find("Text Area").transform.Find("Placeholder").GetComponent<TMP_Text>().text = MaxMovesAllowed.ToString();
+            }
+           
             // ownsSeed = true;
         }
     }
@@ -44,6 +53,27 @@ public class SeedHolderScript : MonoBehaviour
                 {
                     seedCorrect = false;
                     Debug.Log("Error on char " + i);
+                }
+            }
+
+            if(String.IsNullOrEmpty(MaxMovesAllowedInput.text) == false)
+            {
+                try
+                {
+                    MaxMovesAllowed = Int32.Parse(MaxMovesAllowedInput.text.ToString());
+                }
+                catch (FormatException)
+                {
+                    Debug.Log("Maksymalna liczba ruchów musi być liczbą");
+                    seedCorrect = false;
+                }
+                
+            }
+            else
+            {
+                if(MaxMovesAllowed == 0)
+                {
+                    MaxMovesAllowed = 10;
                 }
             }
         }
@@ -77,6 +107,26 @@ public class SeedHolderScript : MonoBehaviour
                 {
                     seedCorrect = false;
                     Debug.Log("Error on char " + i);
+                }
+            }
+
+            if(String.IsNullOrEmpty(MaxMovesAllowedInput.text) == false)
+            {
+                try
+                {
+                    MaxMovesAllowed = Int32.Parse(MaxMovesAllowedInput.text.ToString());
+                }
+                catch (FormatException)
+                {
+                    Debug.Log("Maksymalna liczba ruchów musi być liczbą");
+                    seedCorrect = false;
+                }
+            }
+            else
+            {
+                if(MaxMovesAllowed == 0)
+                {
+                    MaxMovesAllowed = 10;
                 }
             }
         }
