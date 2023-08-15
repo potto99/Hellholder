@@ -10,7 +10,7 @@ public class ContinousTests : MonoBehaviour
     RandomSeedGenerator RandomSeedGeneratorScript;
 
    
-    
+    public float TestingTime;
     public bool testContinous = false;
 
     void Start() 
@@ -18,6 +18,7 @@ public class ContinousTests : MonoBehaviour
         if(GameObject.Find("KeepTesting") && GameObject.Find("KeepTesting") != this.gameObject)
         {
             testContinous = true;
+            TestingTime = GameObject.Find("KeepTesting").GetComponent<ContinousTests>().TestingTime + Time.deltaTime; 
             Destroy(GameObject.Find("KeepTesting"));
             DontDestroyOnLoad(this.gameObject);
             Scene scene = SceneManager.GetActiveScene();

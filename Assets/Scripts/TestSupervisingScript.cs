@@ -10,13 +10,14 @@ public class TestSupervisingScript : MonoBehaviour
     [SerializeField] public TMP_Text RequiredMoves;
     [SerializeField] public TMP_Text RequiredTurns;
     [SerializeField] public TMP_InputField SolutionToCopy;
+    [SerializeField] public TMP_Text TimeOfTest;
     int testingTextCount = 1;
     // string movementSequence = "dddddddddddddddddddddddddddddddddddddddd";
     char[] movementSequence = new char[] {'d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d'};
 
     
     
-
+    public float TestingTime = 0;
     public int move = 0;
     public int minMoves = 40;
     public int minTurnsToFinish = 40;
@@ -65,6 +66,7 @@ public class TestSupervisingScript : MonoBehaviour
             {
                 Debug.Log("Testing Continously");
                 solvingContonously = true;
+                TestingTime = ContinousTester.GetComponent<ContinousTests>().TestingTime + Time.deltaTime;
             }
 
         }
@@ -76,7 +78,8 @@ public class TestSupervisingScript : MonoBehaviour
         
         if(canGetNewMove && finishedSearching == false && Player!=null)
         {
-            
+            TestingTime += Time.deltaTime;
+            TimeOfTest.text = TestingTime.ToString();
             if(highestChanged >= minTurnsToFinish)
             {
                 AllPossibilitiesChecked();
@@ -291,6 +294,7 @@ public class TestSupervisingScript : MonoBehaviour
             {
                 if(ContinousTester.GetComponent<ContinousTests>().testContinous == true)
                 {
+                    ContinousTester.GetComponent<ContinousTests>().TestingTime = TestingTime;
                     ContinousTester.GetComponent<ContinousTests>().RetryforContinuity();
                 }
             }

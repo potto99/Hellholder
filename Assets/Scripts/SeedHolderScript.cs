@@ -23,7 +23,7 @@ public class SeedHolderScript : MonoBehaviour
         {
             SeedHolderScript SeedHolderToExtractSeedFrom = preExistingSeedHolder.GetComponent<SeedHolderScript>();
             seed = SeedHolderToExtractSeedFrom.seed;
-            MaxMovesAllowed = SeedHolderToExtractSeedFrom.MaxMovesAllowed;    
+            MaxMovesAllowed = SeedHolderToExtractSeedFrom.MaxMovesAllowed;  
             Destroy(preExistingSeedHolder);
             if(SeedStringInput != null)
             {
