@@ -250,6 +250,7 @@ public class TestSupervisingScript : MonoBehaviour
 
         if(levelIsSolvable)
         {
+            Camera.main.backgroundColor = Camera.main.backgroundColor = new Color32(29, 135, 13, 255);  
             Debug.Log("------------------------");
             Debug.Log("ALL POSIBILITIES CHECKED");
             Debug.Log("SEED:");
@@ -264,6 +265,7 @@ public class TestSupervisingScript : MonoBehaviour
         }
         else
         {
+            Camera.main.backgroundColor = new Color32(207, 22, 19, 255);  
             Debug.Log("------------------------");
             Debug.Log("ALL POSIBILITIES CHECKED");
             Debug.Log("SEED:");
