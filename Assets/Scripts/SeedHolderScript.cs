@@ -9,8 +9,11 @@ using System;
 public class SeedHolderScript : MonoBehaviour
 {
     [SerializeField] public TMP_InputField SeedStringInput;
+    
+    [SerializeField] public TMP_InputField MinMovesAllowedInput;
     [SerializeField] public TMP_InputField MaxMovesAllowedInput;
     public string seed;
+    public int MinMovesAllowed;
     public int MaxMovesAllowed;
     // public bool ownsSeed = false;
 
@@ -23,16 +26,22 @@ public class SeedHolderScript : MonoBehaviour
         {
             SeedHolderScript SeedHolderToExtractSeedFrom = preExistingSeedHolder.GetComponent<SeedHolderScript>();
             seed = SeedHolderToExtractSeedFrom.seed;
+            MinMovesAllowed = SeedHolderToExtractSeedFrom.MinMovesAllowed;
             MaxMovesAllowed = SeedHolderToExtractSeedFrom.MaxMovesAllowed;  
             Destroy(preExistingSeedHolder);
             if(SeedStringInput != null)
             {
                 SeedStringInput.transform.Find("Text Area").transform.Find("Placeholder").GetComponent<TMP_Text>().text = seed;
             }
+            if(MinMovesAllowedInput != null)
+            {
+                MinMovesAllowedInput.transform.Find("Text Area").transform.Find("Placeholder").GetComponent<TMP_Text>().text = MinMovesAllowed.ToString();
+            }
             if(MaxMovesAllowedInput != null)
             {
                 MaxMovesAllowedInput.transform.Find("Text Area").transform.Find("Placeholder").GetComponent<TMP_Text>().text = MaxMovesAllowed.ToString();
             }
+            
            
             // ownsSeed = true;
         }
@@ -56,6 +65,21 @@ public class SeedHolderScript : MonoBehaviour
                 }
             }
 
+            if(String.IsNullOrEmpty(MinMovesAllowedInput.text) == false)
+            {
+                try
+                {
+                    MinMovesAllowed = Int32.Parse(MinMovesAllowedInput.text.ToString());
+                }
+                catch (FormatException)
+                {
+                    Debug.Log("Minimalna liczba ruchów musi być liczbą");
+                    seedCorrect = false;
+                }
+                
+            }
+ 
+
             if(String.IsNullOrEmpty(MaxMovesAllowedInput.text) == false)
             {
                 try
@@ -76,6 +100,8 @@ public class SeedHolderScript : MonoBehaviour
                     MaxMovesAllowed = 10;
                 }
             }
+
+            
         }
         else
         {
@@ -110,6 +136,19 @@ public class SeedHolderScript : MonoBehaviour
                 }
             }
 
+            if(String.IsNullOrEmpty(MinMovesAllowedInput.text) == false)
+            {
+                try
+                {
+                    MinMovesAllowed = Int32.Parse(MinMovesAllowedInput.text.ToString());
+                }
+                catch (FormatException)
+                {
+                    Debug.Log("Minimalna liczba ruchów musi być liczbą");
+                    seedCorrect = false;
+                }
+            }
+       
             if(String.IsNullOrEmpty(MaxMovesAllowedInput.text) == false)
             {
                 try

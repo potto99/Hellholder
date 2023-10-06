@@ -21,6 +21,7 @@ public class TestSupervisingScript : MonoBehaviour
     public int move = 0;
     public int minMoves = 40;
     public int minTurnsToFinish = 40;
+    public int minTurnsAllowedToFinish = 0;
     public int bestSolutionMoves = 40;
     public int bestSolutionTurns = 40;
     public int highestChanged = 0;
@@ -50,6 +51,7 @@ public class TestSupervisingScript : MonoBehaviour
         // LevelTestGenerator = Instantiate(LevelTestGeneratorObject);
         LevelTestGeneratorScript = LevelTestGeneratorObject.GetComponent<LevelTestGeneratorScript>();
         SeedToCopy.text = LevelTestGeneratorScript.seed;
+        minTurnsAllowedToFinish = LevelTestGeneratorScript.MinMoves;
         minTurnsToFinish = LevelTestGeneratorScript.MaxMoves;
 
         TurnCounter = GameObject.Find("TurnCounter");
@@ -80,13 +82,13 @@ public class TestSupervisingScript : MonoBehaviour
         {
             TestingTime += Time.deltaTime;
             TimeOfTest.text = TestingTime.ToString();
-            if(highestChanged >= minTurnsToFinish)
-            {
-                AllPossibilitiesChecked();
-                canGetNewMove = false;
-                return;
-            }
-            // Debug.Log(turn);
+            // if(highestChanged >= minTurnsToFinish)
+            // {
+            //     AllPossibilitiesChecked();
+            //     canGetNewMove = false;
+            //     return;
+            // }
+            
             
             character = movementSequence[move];
             
@@ -102,7 +104,7 @@ public class TestSupervisingScript : MonoBehaviour
         }
     }
 
-    void ChangeSequence()
+    public void ChangeSequence()
     {
         ChangeTestingText(false);
         
@@ -163,6 +165,13 @@ public class TestSupervisingScript : MonoBehaviour
             }
         }
 
+        if(highestChanged >= minTurnsToFinish)
+            {
+                AllPossibilitiesChecked();
+                canGetNewMove = false;
+                return;
+            }
+
 
         
 
@@ -193,14 +202,23 @@ public class TestSupervisingScript : MonoBehaviour
 
     public void SolutionFound(int turnsToFinish)
     {
+         if(turnsToFinish < minTurnsAllowedToFinish)
+            {
+                AllPossibilitiesChecked();
+                canGetNewMove = false;
+                return;
+            }
+
         levelIsSolvable = true;
         minTurnsToFinish = turnsToFinish;
         minMoves = move;
+        
 
         if(minTurnsToFinish <= bestSolutionTurns)
         {
             bestSolutionTurns = minTurnsToFinish;
             bestSolutionMoves = minMoves;
+            TurnCounterScript.bestSolutionTurns = bestSolutionTurns;
             char[] bestSolutionSequence = new char[minMoves];
             for(int s = 0; s < minMoves; s++ )
             {
@@ -250,7 +268,7 @@ public class TestSupervisingScript : MonoBehaviour
             Debug.Log("ALL POSIBILITIES CHECKED");
             Debug.Log("SEED:");
             Debug.Log(LevelTestGeneratorScript.seed);
-            Debug.Log("No solution found within " + minTurnsToFinish + "turns");
+            Debug.Log("No solution found within " + minTurnsAllowedToFinish + " to " + minTurnsToFinish + " turns");
             NeedToContinueTesting(solvingContonously);
         }
         

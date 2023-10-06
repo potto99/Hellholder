@@ -107,7 +107,8 @@ public class PlayerMovement : MonoBehaviour
                 ElementTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTypeInterface>();
                 if(fieldElementTypeInterface.isWall == true)
                 {
-                    TurnCounterScript.TurnDown();
+                    //Możemy to wyrzucić, ponieważ przy wejściu w ścianę nie traci się ruchu   
+                    // TurnCounterScript.TurnDown();
                     TableNumberX_toCheck = TableNumberX;
                     TableNumberY_toCheck = TableNumberY;
                     return;

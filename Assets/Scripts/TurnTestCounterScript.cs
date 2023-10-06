@@ -11,13 +11,22 @@ public class TurnTestCounterScript : MonoBehaviour
     [SerializeField] GameObject LevelGeneratorObject;
     [SerializeField] LevelTestGeneratorScript LevelGeneratorScript;
     [SerializeField] public List<GameObject> fields;
+    [SerializeField] GameObject LevelTestSupervisorObject;
+    [SerializeField] public TestSupervisingScript TestSupervisingScript;
+
+    public int bestSolutionTurns = 40;
     public void Start()
     {
         turnsLeft = 40;
         LevelGeneratorObject = GameObject.Find("LevelTestGeneratorObject");
         LevelGeneratorScript = LevelGeneratorObject.GetComponent<LevelTestGeneratorScript>();
         fields = LevelGeneratorScript.fields;
-
+        
+        LevelTestSupervisorObject = GameObject.Find("LevelTestSupervisorObject");
+        if(LevelTestSupervisorObject != null)
+        {
+            TestSupervisingScript = LevelTestSupervisorObject.GetComponent<TestSupervisingScript>();
+        }
     }
 
     public void TurnDown()
@@ -29,6 +38,14 @@ public class TurnTestCounterScript : MonoBehaviour
         {
             ElementTestTypeInterface ElementTypeInterface = field.GetComponent<ElementTestTypeInterface>();
             if(ElementTypeInterface.isChangableSpike){ElementTypeInterface.ChangeSpikeState();}
+        }
+
+        if(40-turnsLeft > bestSolutionTurns)
+        {
+            if(LevelGeneratorObject != null)
+            {
+                TestSupervisingScript.ChangeSequence();
+            }
         }
 
         if(turnsLeft < 0)

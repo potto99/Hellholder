@@ -120,10 +120,13 @@ public class PlayerTesting : MonoBehaviour
                 if(fieldElementTypeInterface.isWall == true)
                 {
                     // Debug.Log("ściana");
-                    TurnCounterScript.TurnDown();
-                    TableNumberX_toCheck = TableNumberX;
-                    TableNumberY_toCheck = TableNumberY;
-                    TestSupervisingScript.canGetNewMove = true;
+                    // TurnCounterScript.TurnDown();
+                    // TableNumberX_toCheck = TableNumberX;
+                    // TableNumberY_toCheck = TableNumberY;
+                    // TestSupervisingScript.canGetNewMove = true;
+
+                    TestSupervisingScript.ChangeSequence();
+
                     return;
                 }
                 else if(fieldElementTypeInterface.isField == true)
