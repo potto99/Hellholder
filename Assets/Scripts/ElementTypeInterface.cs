@@ -54,8 +54,8 @@ public class ElementTypeInterface : MonoBehaviour
                     List<GameObject> fields = LevelGeneratorScript.fields;
                     foreach(GameObject field in fields)
                     {
-                        ElementCoordinates fieldElementCoorinates = field.GetComponent<ElementCoordinates>();
-                        if(fieldElementCoorinates.TableNumberX == myElementCoordinates.TableNumberX && fieldElementCoorinates.TableNumberY == myElementCoordinates.TableNumberY)
+                        ElementCoordinates fieldElementCoordinates = field.GetComponent<ElementCoordinates>();
+                        if(fieldElementCoordinates.TableNumberX == myElementCoordinates.TableNumberX && fieldElementCoordinates.TableNumberY == myElementCoordinates.TableNumberY)
                         {
                             ElementTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTypeInterface>();
                             if(fieldElementTypeInterface.isSpikeActive == true)

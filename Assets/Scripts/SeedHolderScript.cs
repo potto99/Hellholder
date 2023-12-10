@@ -57,7 +57,7 @@ public class SeedHolderScript : MonoBehaviour
             for (int i = 0; i < seed.Length; i ++)
             {
                 character = seed[i];
-                if(character.ToString() == "f" || character.ToString() == "w" || character.ToString() == "r" || character.ToString() == "a" || character.ToString() == "s" || character.ToString() == "c" || character.ToString() == "e" || character.ToString() == "b" || character.ToString() == "k" || character.ToString() == "d"){}
+                if(character.ToString() == "f" || character.ToString() == "w" || character.ToString() == "r" || character.ToString() == "a" || character.ToString() == "o" || character.ToString() == "s" || character.ToString() == "m" || character.ToString() == "c" || character.ToString() == "n"|| character.ToString() == "e" || character.ToString() == "b" || character.ToString() == "k" || character.ToString() == "d"){}
                 else
                 {
                     seedCorrect = false;

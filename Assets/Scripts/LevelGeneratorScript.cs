@@ -78,6 +78,20 @@ public class LevelGeneratorScript : MonoBehaviour
                 placingObject.GetComponent<ElementTypeInterface>().isChangableSpike = false;
 
             }
+            else if(character.ToString() == "o") //active spike with rock
+            {
+                placingObject = Instantiate(spike);
+                fields.Add(placingObject);
+                addCoordinates(placingObject, i);
+                placingObject.GetComponent<ElementTypeInterface>().ActivateSpike();
+                placingObject.GetComponent<ElementTypeInterface>().isChangableSpike = false;
+                placingObject.GetComponent<ElementTypeInterface>().isTakenByRock = true;
+
+                placingObject = Instantiate(rock); 
+                levelObjects.Add(placingObject);
+                addCoordinates(placingObject, i);
+
+            }
             else if(character.ToString() == "s") //changable active spike
             {
                 placingObject = Instantiate(spike);
@@ -86,6 +100,19 @@ public class LevelGeneratorScript : MonoBehaviour
                 placingObject.GetComponent<ElementTypeInterface>().isChangableSpike = true;
                 placingObject.GetComponent<ElementTypeInterface>().ActivateSpike();
             }
+            else if(character.ToString() == "m") //changable active spike with rock
+            {
+                placingObject = Instantiate(spike);
+                fields.Add(placingObject);
+                addCoordinates(placingObject, i);
+                placingObject.GetComponent<ElementTypeInterface>().isChangableSpike = true;
+                placingObject.GetComponent<ElementTypeInterface>().ActivateSpike();
+                placingObject.GetComponent<ElementTypeInterface>().isTakenByRock = true;
+
+                placingObject = Instantiate(rock); 
+                levelObjects.Add(placingObject);
+                addCoordinates(placingObject, i);
+            }
             else if(character.ToString() == "c") //changable inactive spike
             {
                 placingObject = Instantiate(spike);
@@ -93,6 +120,19 @@ public class LevelGeneratorScript : MonoBehaviour
                 addCoordinates(placingObject, i);
                 placingObject.GetComponent<ElementTypeInterface>().isChangableSpike = true;
                 placingObject.GetComponent<ElementTypeInterface>().DeactivateSpike();
+            }
+            else if(character.ToString() == "n") //changable inactive spike with rock
+            {
+                placingObject = Instantiate(spike);
+                fields.Add(placingObject);
+                addCoordinates(placingObject, i);
+                placingObject.GetComponent<ElementTypeInterface>().isChangableSpike = true;
+                placingObject.GetComponent<ElementTypeInterface>().DeactivateSpike();
+                placingObject.GetComponent<ElementTypeInterface>().isTakenByRock = true;
+
+                placingObject = Instantiate(rock); 
+                levelObjects.Add(placingObject);
+                addCoordinates(placingObject, i);
             }
             else if(character.ToString() == "b") // beginningField
             {

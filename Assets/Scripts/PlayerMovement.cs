@@ -72,8 +72,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 foreach(GameObject field in fields)
                 {
-                    ElementCoordinates fieldElementCoorinates = field.GetComponent<ElementCoordinates>();
-                    if(fieldElementCoorinates.TableNumberX == TableNumberX && fieldElementCoorinates.TableNumberY == TableNumberY)
+                    ElementCoordinates fieldElementCoordinates = field.GetComponent<ElementCoordinates>();
+                    if(fieldElementCoordinates.TableNumberX == TableNumberX && fieldElementCoordinates.TableNumberY == TableNumberY)
                     {
                         ElementTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTypeInterface>();
                         if(fieldElementTypeInterface.isSpikeActive == true)
@@ -101,14 +101,12 @@ public class PlayerMovement : MonoBehaviour
         fields = LevelGeneratorScript.fields;
         foreach(GameObject field in fields)
         {
-            ElementCoordinates fieldElementCoorinates = field.GetComponent<ElementCoordinates>();
-            if(fieldElementCoorinates.TableNumberX == X && fieldElementCoorinates.TableNumberY == Y)
+            ElementCoordinates fieldElementCoordinates = field.GetComponent<ElementCoordinates>();
+            if(fieldElementCoordinates.TableNumberX == X && fieldElementCoordinates.TableNumberY == Y)
             {
                 ElementTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTypeInterface>();
                 if(fieldElementTypeInterface.isWall == true)
                 {
-                    //Możemy to wyrzucić, ponieważ przy wejściu w ścianę nie traci się ruchu   
-                    // TurnCounterScript.TurnDown();
                     TableNumberX_toCheck = TableNumberX;
                     TableNumberY_toCheck = TableNumberY;
                     return;
@@ -120,15 +118,16 @@ public class PlayerMovement : MonoBehaviour
                         objects = LevelGeneratorScript.levelObjects;
                         foreach(GameObject levelObject in objects)
                         {
-                            ElementCoordinates objectElementCoorinates = levelObject.GetComponent<ElementCoordinates>();
+                            ElementCoordinates objectElementCoordinates = levelObject.GetComponent<ElementCoordinates>();
                             ElementTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTypeInterface>();
-                            if(objectElementTypeInterface.isEnemy == true && objectElementCoorinates.TableNumberX == TableNumberX_toCheck && objectElementCoorinates.TableNumberY == TableNumberY_toCheck)
+                            if(objectElementTypeInterface.isEnemy == true && objectElementCoordinates.TableNumberX == TableNumberX_toCheck && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
                             {
                                 // Destroy(levelObject);
                                 objectElementTypeInterface.Push(dir);
                                 TurnCounterScript.TurnDown();
                                 TableNumberX_toCheck = TableNumberX;
                                 TableNumberY_toCheck = TableNumberY;
+                                CheckIfImStandingOnSpike(TableNumberX, TableNumberY);
                                 break;
 
                             }
@@ -139,15 +138,16 @@ public class PlayerMovement : MonoBehaviour
                         objects = LevelGeneratorScript.levelObjects;
                         foreach(GameObject levelObject in objects)
                         {
-                            ElementCoordinates objectElementCoorinates = levelObject.GetComponent<ElementCoordinates>();
+                            ElementCoordinates objectElementCoordinates = levelObject.GetComponent<ElementCoordinates>();
                             ElementTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTypeInterface>();
-                            if(objectElementTypeInterface.isRock == true && objectElementCoorinates.TableNumberX == TableNumberX_toCheck && objectElementCoorinates.TableNumberY == TableNumberY_toCheck)
+                            if(objectElementTypeInterface.isRock == true && objectElementCoordinates.TableNumberX == TableNumberX_toCheck && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
                             {
                                 // Destroy(levelObject);
                                 objectElementTypeInterface.Push(dir);
                                 TurnCounterScript.TurnDown();
                                 TableNumberX_toCheck = TableNumberX;
                                 TableNumberY_toCheck = TableNumberY;
+                                CheckIfImStandingOnSpike(TableNumberX, TableNumberY);
                                 break;
                             }
                         }
@@ -157,15 +157,15 @@ public class PlayerMovement : MonoBehaviour
                         objects = LevelGeneratorScript.levelObjects;
                         foreach(GameObject levelObject in objects)
                         {
-                            ElementCoordinates objectElementCoorinates = levelObject.GetComponent<ElementCoordinates>();
+                            ElementCoordinates objectElementCoordinates = levelObject.GetComponent<ElementCoordinates>();
                             ElementTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTypeInterface>();
-                            if(objectElementTypeInterface.isKey == true && objectElementCoorinates.TableNumberX == TableNumberX_toCheck && objectElementCoorinates.TableNumberY == TableNumberY_toCheck)
+                            if(objectElementTypeInterface.isKey == true && objectElementCoordinates.TableNumberX == TableNumberX_toCheck && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
                             {
                                 Destroy(levelObject);
                                 heldKeys++;
                                 TableNumberX = TableNumberX_toCheck;
                                 TableNumberY = TableNumberY_toCheck;
-                                targetFieldPosition = new Vector2(fieldElementCoorinates.positionX, fieldElementCoorinates.positionY);
+                                targetFieldPosition = new Vector2(fieldElementCoordinates.positionX, fieldElementCoordinates.positionY);
                                 needToMove = true;
                                 TurnCounterScript.TurnDown();
                                 break;
@@ -176,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
                     {//Natrafiliśmy na puste pole
                         TableNumberX = TableNumberX_toCheck;
                         TableNumberY = TableNumberY_toCheck;
-                        targetFieldPosition = new Vector2(fieldElementCoorinates.positionX, fieldElementCoorinates.positionY);
+                        targetFieldPosition = new Vector2(fieldElementCoordinates.positionX, fieldElementCoordinates.positionY);
                         needToMove = true;
                         TurnCounterScript.TurnDown();
                         return;
@@ -197,6 +197,22 @@ public class PlayerMovement : MonoBehaviour
                         TableNumberY_toCheck = TableNumberY;
                         return;
                     }
+                }
+            }
+        }
+    }
+
+    public void CheckIfImStandingOnSpike(int X, int Y)
+    {
+        foreach(GameObject field in fields)
+        {
+            ElementCoordinates fieldElementCoordinates = field.GetComponent<ElementCoordinates>();
+            if(fieldElementCoordinates.TableNumberX == X && fieldElementCoordinates.TableNumberY == Y)
+            {
+                ElementTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTypeInterface>();
+                if(fieldElementTypeInterface.isSpike)
+                {
+                    if(fieldElementTypeInterface.isSpikeActive == true){TurnCounterScript.SpikeTurnLoss();}
                 }
             }
         }

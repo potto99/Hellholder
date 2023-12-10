@@ -111,9 +111,9 @@ public class PlayerTesting : MonoBehaviour
         fields = new List<GameObject>(LevelGeneratorScript.fields);
         foreach(GameObject field in fields)
         {
-            ElementCoordinates fieldElementCoorinates = field.GetComponent<ElementCoordinates>();
-            // Debug.Log("Field"+fieldElementCoorinates.TableNumberX+""+fieldElementCoorinates.TableNumberY);
-            if(fieldElementCoorinates.TableNumberX == X && fieldElementCoorinates.TableNumberY == Y)
+            ElementCoordinates fieldElementCoordinates = field.GetComponent<ElementCoordinates>();
+            // Debug.Log("Field"+fieldElementCoordinates.TableNumberX+""+fieldElementCoordinates.TableNumberY);
+            if(fieldElementCoordinates.TableNumberX == X && fieldElementCoordinates.TableNumberY == Y)
             {
                 // Debug.Log("znaleziony");
                 ElementTestTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTestTypeInterface>();
@@ -138,15 +138,16 @@ public class PlayerTesting : MonoBehaviour
                         {
                             if(levelObject != null)
                             {
-                                ElementCoordinates objectElementCoorinates = levelObject.GetComponent<ElementCoordinates>();
+                                ElementCoordinates objectElementCoordinates = levelObject.GetComponent<ElementCoordinates>();
                                 ElementTestTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTestTypeInterface>();
-                                if(objectElementTypeInterface.isEnemy == true && objectElementCoorinates.TableNumberX == TableNumberX_toCheck && objectElementCoorinates.TableNumberY == TableNumberY_toCheck)
+                                if(objectElementTypeInterface.isEnemy == true && objectElementCoordinates.TableNumberX == TableNumberX_toCheck && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
                                 {
                                     // Destroy(levelObject);
                                     objectElementTypeInterface.Push(dir);
                                     TurnCounterScript.TurnDown();
                                     TableNumberX_toCheck = TableNumberX;
                                     TableNumberY_toCheck = TableNumberY;
+                                    CheckIfImStandingOnSpike(TableNumberX, TableNumberY);
                                     TestSupervisingScript.canGetNewMove = true;
                                     break;
 
@@ -161,9 +162,9 @@ public class PlayerTesting : MonoBehaviour
                         {
                             if(levelObject != null)
                             {
-                                ElementCoordinates objectElementCoorinates = levelObject.GetComponent<ElementCoordinates>();
+                                ElementCoordinates objectElementCoordinates = levelObject.GetComponent<ElementCoordinates>();
                                 ElementTestTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTestTypeInterface>();
-                                if(objectElementTypeInterface.isRock == true && objectElementCoorinates.TableNumberX == TableNumberX_toCheck && objectElementCoorinates.TableNumberY == TableNumberY_toCheck)
+                                if(objectElementTypeInterface.isRock == true && objectElementCoordinates.TableNumberX == TableNumberX_toCheck && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
                                 {
                                     // Destroy(levelObject);
                                     objectElementTypeInterface.Push(dir);
@@ -183,15 +184,15 @@ public class PlayerTesting : MonoBehaviour
                         {
                             if(levelObject != null)
                             {
-                                ElementCoordinates objectElementCoorinates = levelObject.GetComponent<ElementCoordinates>();
+                                ElementCoordinates objectElementCoordinates = levelObject.GetComponent<ElementCoordinates>();
                                 ElementTestTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTestTypeInterface>();
-                                if(objectElementTypeInterface.isKey == true && objectElementCoorinates.TableNumberX == TableNumberX_toCheck && objectElementCoorinates.TableNumberY == TableNumberY_toCheck)
+                                if(objectElementTypeInterface.isKey == true && objectElementCoordinates.TableNumberX == TableNumberX_toCheck && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
                                 {
                                     Destroy(levelObject);
                                     heldKeys++;
                                     TableNumberX = TableNumberX_toCheck;
                                     TableNumberY = TableNumberY_toCheck;
-                                    targetFieldPosition = new Vector2(fieldElementCoorinates.positionX, fieldElementCoorinates.positionY);
+                                    targetFieldPosition = new Vector2(fieldElementCoordinates.positionX, fieldElementCoordinates.positionY);
                                     needToMove = true;
                                     TurnCounterScript.TurnDown();
                                     break;
@@ -203,7 +204,7 @@ public class PlayerTesting : MonoBehaviour
                     {
                         TableNumberX = TableNumberX_toCheck;
                         TableNumberY = TableNumberY_toCheck;
-                        targetFieldPosition = new Vector2(fieldElementCoorinates.positionX, fieldElementCoorinates.positionY);
+                        targetFieldPosition = new Vector2(fieldElementCoordinates.positionX, fieldElementCoordinates.positionY);
                         needToMove = true;
                         TurnCounterScript.TurnDown();
                         if(fieldElementTypeInterface.isSpikeActive == true){TurnCounterScript.SpikeTurnLoss();}
@@ -213,7 +214,7 @@ public class PlayerTesting : MonoBehaviour
                     {//Natrafiliśmy na puste pole
                         TableNumberX = TableNumberX_toCheck;
                         TableNumberY = TableNumberY_toCheck;
-                        targetFieldPosition = new Vector2(fieldElementCoorinates.positionX, fieldElementCoorinates.positionY);
+                        targetFieldPosition = new Vector2(fieldElementCoordinates.positionX, fieldElementCoordinates.positionY);
                         transform.position = targetFieldPosition;
                         needToMove = true;
                         TurnCounterScript.TurnDown();
@@ -243,4 +244,21 @@ public class PlayerTesting : MonoBehaviour
             }
         }
     }
+
+    public void CheckIfImStandingOnSpike(int X, int Y)
+    {
+        foreach(GameObject field in fields)
+        {
+            ElementCoordinates fieldElementCoordinates = field.GetComponent<ElementCoordinates>();
+            if(fieldElementCoordinates.TableNumberX == X && fieldElementCoordinates.TableNumberY == Y)
+            {
+                ElementTestTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTestTypeInterface>();
+                if(fieldElementTypeInterface.isSpike)
+                {
+                    if(fieldElementTypeInterface.isSpikeActive == true){TurnCounterScript.SpikeTurnLoss();}
+                }
+            }
+        }
+    }
+    
 }
