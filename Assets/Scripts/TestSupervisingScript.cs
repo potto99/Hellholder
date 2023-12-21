@@ -13,7 +13,7 @@ public class TestSupervisingScript : MonoBehaviour
     [SerializeField] public TMP_Text TimeOfTest;
     int testingTextCount = 1;
     // string movementSequence = "dddddddddddddddddddddddddddddddddddddddd";
-    char[] movementSequence = new char[] {'d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d'};
+    char[] movementSequence = new char[] {'d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d'};
 
     
     
@@ -73,21 +73,16 @@ public class TestSupervisingScript : MonoBehaviour
 
         }
     }
-    void Update()
+    void FixedUpdate()
     {
         
        
         
         if(canGetNewMove && finishedSearching == false && Player!=null)
         {
-            TestingTime += Time.deltaTime;
+            TestingTime += Time.unscaledDeltaTime;
             TimeOfTest.text = TestingTime.ToString();
-            // if(highestChanged >= minTurnsToFinish)
-            // {
-            //     AllPossibilitiesChecked();
-            //     canGetNewMove = false;
-            //     return;
-            // }
+         
             
             
             character = movementSequence[move];
@@ -104,6 +99,15 @@ public class TestSupervisingScript : MonoBehaviour
         }
     }
 
+    // void Update()
+    // {
+    //      if(canGetNewMove && finishedSearching == false && Player!=null)
+    //     {
+    //         TestingTime += Time.deltaTime;
+    //         TimeOfTest.text = TestingTime.ToString();
+    //     }
+    // }
+
     public void ChangeSequence()
     {
         ChangeTestingText(false);
@@ -117,7 +121,7 @@ public class TestSupervisingScript : MonoBehaviour
         // tmpCheck[2] = movementSequence[2];
         // string tmpCheckString = new string(tmpCheck);
         // if(tmpCheckString == "aaa")
-        if(movementSequenceString == "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        if(movementSequenceString == "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         {
             Debug.Log("Brak możliwości rozwiązania");
             finishedSearching = true;

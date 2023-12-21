@@ -47,7 +47,7 @@ public class PlayerTesting : MonoBehaviour
        
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if(dir == "up" && needToMove == false)
         {
@@ -189,6 +189,7 @@ public class PlayerTesting : MonoBehaviour
                                 if(objectElementTypeInterface.isKey == true && objectElementCoordinates.TableNumberX == TableNumberX_toCheck && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
                                 {
                                     Destroy(levelObject);
+                                    fieldElementTypeInterface.isHoldingKey = false;
                                     heldKeys++;
                                     TableNumberX = TableNumberX_toCheck;
                                     TableNumberY = TableNumberY_toCheck;
@@ -225,12 +226,13 @@ public class PlayerTesting : MonoBehaviour
                 {
                     if(heldKeys == LevelGeneratorScript.keys)
                     {
-                        Debug.Log("Poziom ukończony");
+                        TableNumberX = TableNumberX_toCheck;
+                        TableNumberY = TableNumberY_toCheck;
+                        targetFieldPosition = new Vector2(fieldElementCoordinates.positionX, fieldElementCoordinates.positionY);
+                        transform.position = targetFieldPosition;
+                        needToMove = true;
                         TurnCounterScript.TurnDown();
-                        int turnsToFinish = TurnCounterScript.GetTurns();
-                        TestSupervisingScript.SolutionFound(turnsToFinish);
-                        Debug.Log("Znalazłem solucję w " + turnsToFinish + " tur");
-                        
+                        return;
                     }
                     else
                     {
@@ -240,6 +242,14 @@ public class PlayerTesting : MonoBehaviour
                         TestSupervisingScript.canGetNewMove = true;
                         return;
                     }
+                }
+                else if(fieldElementTypeInterface.isGoal == true)
+                {
+                    Debug.Log("Poziom ukończony");
+                    TurnCounterScript.TurnDown();
+                    int turnsToFinish = TurnCounterScript.GetTurns();
+                    TestSupervisingScript.SolutionFound(turnsToFinish);
+                    Debug.Log("Znalazłem solucję w " + turnsToFinish + " tur");
                 }
             }
         }

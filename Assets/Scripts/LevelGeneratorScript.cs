@@ -13,6 +13,7 @@ public class LevelGeneratorScript : MonoBehaviour
     [SerializeField] GameObject enemy;
     [SerializeField] GameObject key;
     [SerializeField] GameObject door;
+    [SerializeField] GameObject goal;
 
     
     public string seed;
@@ -161,7 +162,13 @@ public class LevelGeneratorScript : MonoBehaviour
                 levelObjects.Add(placingObject);
                 addCoordinates(placingObject, i);
                 keys++;
-            } 
+            }
+            else if(character.ToString() == "g") //goal
+            {
+                placingObject = Instantiate(goal);
+                fields.Add(placingObject);
+                addCoordinates(placingObject, i);
+            }  
             else 
             {
                 Debug.Log("ERROR - NIEPOPRAWNY SYMBOL");

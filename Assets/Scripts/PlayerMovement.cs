@@ -186,9 +186,12 @@ public class PlayerMovement : MonoBehaviour
                 {
                     if(heldKeys == LevelGeneratorScript.keys)
                     {
-                        Debug.Log("Poziom ukończony");
+                        TableNumberX = TableNumberX_toCheck;
+                        TableNumberY = TableNumberY_toCheck;
+                        targetFieldPosition = new Vector2(fieldElementCoordinates.positionX, fieldElementCoordinates.positionY);
+                        needToMove = true;
                         TurnCounterScript.TurnDown();
-                        TurnCounterScript.DeclareWin();
+                        return;
                     }
                     else
                     {
@@ -197,6 +200,11 @@ public class PlayerMovement : MonoBehaviour
                         TableNumberY_toCheck = TableNumberY;
                         return;
                     }
+                }
+                else if(fieldElementTypeInterface.isGoal == true)
+                {
+                    TurnCounterScript.TurnDown();
+                    TurnCounterScript.DeclareWin();
                 }
             }
         }

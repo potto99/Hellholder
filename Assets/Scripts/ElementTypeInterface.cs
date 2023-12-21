@@ -13,6 +13,7 @@ public class ElementTypeInterface : MonoBehaviour
     [SerializeField] public bool isEnemy;
     [SerializeField] public bool isKey;
     [SerializeField] public bool isDoor;
+    [SerializeField] public bool isGoal;
 
     [SerializeField] public bool isChangableSpike;
     [SerializeField] public bool isTakenByRock;
@@ -41,7 +42,7 @@ public class ElementTypeInterface : MonoBehaviour
         myElementCoordinates = GetComponent<ElementCoordinates>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if(needsToMove)
         {

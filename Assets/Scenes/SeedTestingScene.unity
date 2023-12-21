@@ -1292,6 +1292,9 @@ MonoBehaviour:
   LevelGeneratorObject: {fileID: 0}
   LevelGeneratorScript: {fileID: 0}
   fields: []
+  LevelTestSupervisorObject: {fileID: 0}
+  TestSupervisingScript: {fileID: 0}
+  bestSolutionTurns: 40
 --- !u!4 &884123550
 Transform:
   m_ObjectHideFlags: 0
@@ -3091,10 +3094,11 @@ MonoBehaviour:
   RequiredTurns: {fileID: 1382567772}
   SolutionToCopy: {fileID: 1890763120}
   TimeOfTest: {fileID: 1201942801}
-  testingTime: 0
+  TestingTime: 0
   move: 0
   minMoves: 40
   minTurnsToFinish: 10
+  minTurnsAllowedToFinish: 0
   bestSolutionMoves: 40
   bestSolutionTurns: 40
   highestChanged: 0
@@ -3219,7 +3223,9 @@ MonoBehaviour:
   enemy: {fileID: 9160891138060449964, guid: b1fb176fd546857408e76282b55fce83, type: 3}
   key: {fileID: 3586962715460476817, guid: a682673503c921d4db55b6e5ebad66d8, type: 3}
   door: {fileID: 6114434514894392746, guid: e25bcf3eca21c1c46b425499ff32096b, type: 3}
+  goal: {fileID: 8936791112834804550, guid: a1e93841ea1770a4096f46772ead6c0b, type: 3}
   seed: 
+  MinMoves: 0
   MaxMoves: 0
   levelObjects: []
   fields: []

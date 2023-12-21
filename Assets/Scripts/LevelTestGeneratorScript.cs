@@ -13,6 +13,7 @@ public class LevelTestGeneratorScript : MonoBehaviour
     [SerializeField] GameObject enemy;
     [SerializeField] GameObject key;
     [SerializeField] GameObject door;
+    [SerializeField] GameObject goal;
 
     public string seed;
     public int MinMoves;
@@ -126,6 +127,20 @@ public class LevelTestGeneratorScript : MonoBehaviour
                 placingObject.GetComponent<ElementTestTypeInterface>().isChangableSpike = false;
 
             }
+            else if(character.ToString() == "o") //active spike with rock
+            {
+                placingObject = Instantiate(spike);
+                fields.Add(placingObject);
+                addCoordinates(placingObject, i);
+                placingObject.GetComponent<ElementTestTypeInterface>().ActivateSpike();
+                placingObject.GetComponent<ElementTestTypeInterface>().isChangableSpike = false;
+                placingObject.GetComponent<ElementTestTypeInterface>().isTakenByRock = true;
+
+                placingObject = Instantiate(rock); 
+                levelObjects.Add(placingObject);
+                addCoordinates(placingObject, i);
+
+            }
             else if(character.ToString() == "s") //changable active spike
             {
                 // fields.Add(spike);
@@ -140,6 +155,19 @@ public class LevelTestGeneratorScript : MonoBehaviour
                 placingObject.GetComponent<ElementTestTypeInterface>().ActivateSpike();
 
             }
+            else if(character.ToString() == "m") //changable active spike with rock
+            {
+                placingObject = Instantiate(spike);
+                fields.Add(placingObject);
+                addCoordinates(placingObject, i);
+                placingObject.GetComponent<ElementTestTypeInterface>().isChangableSpike = true;
+                placingObject.GetComponent<ElementTestTypeInterface>().ActivateSpike();
+                placingObject.GetComponent<ElementTestTypeInterface>().isTakenByRock = true;
+
+                placingObject = Instantiate(rock); 
+                levelObjects.Add(placingObject);
+                addCoordinates(placingObject, i);
+            }
             else if(character.ToString() == "c") //changable inactive spike
             {
                 // fields.Add(spike);
@@ -153,6 +181,19 @@ public class LevelTestGeneratorScript : MonoBehaviour
                 placingObject.GetComponent<ElementTestTypeInterface>().isChangableSpike = true;
                 placingObject.GetComponent<ElementTestTypeInterface>().DeactivateSpike();
 
+            }
+             else if(character.ToString() == "n") //changable inactive spike with rock
+            {
+                placingObject = Instantiate(spike);
+                fields.Add(placingObject);
+                addCoordinates(placingObject, i);
+                placingObject.GetComponent<ElementTestTypeInterface>().isChangableSpike = true;
+                placingObject.GetComponent<ElementTestTypeInterface>().DeactivateSpike();
+                placingObject.GetComponent<ElementTestTypeInterface>().isTakenByRock = true;
+
+                placingObject = Instantiate(rock); 
+                levelObjects.Add(placingObject);
+                addCoordinates(placingObject, i);
             }
             else if(character.ToString() == "b") // beginningField
             {
@@ -201,6 +242,12 @@ public class LevelTestGeneratorScript : MonoBehaviour
                 placingObject.GetComponent<ElementTestTypeInterface>().isKey = true;
                 keys++;
             } 
+            else if(character.ToString() == "g") //goal
+            {
+                placingObject = Instantiate(goal);
+                fields.Add(placingObject);
+                addCoordinates(placingObject, i);
+            }  
             else 
             {
                 Debug.Log("ERROR - NIEPOPRAWNY SYMBOL");

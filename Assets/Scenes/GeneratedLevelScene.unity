@@ -1447,6 +1447,7 @@ MonoBehaviour:
   enemy: {fileID: 6351872184333157269, guid: 4d3ac875ea63afb4b91ef343252285c5, type: 3}
   key: {fileID: 4676644907355614200, guid: 806371dd9b16c424896a56705b359555, type: 3}
   door: {fileID: 8113835676751982191, guid: d264567f4044d1e4b82b8c6690ac48e1, type: 3}
+  goal: {fileID: 1756646026051345427, guid: 41d7e493b48be214b8ec2b72727491f8, type: 3}
   seed: 
   levelObjects: []
   fields: []
