@@ -35,13 +35,10 @@ public class PlayerTesting : MonoBehaviour
         TestSupervisingScript  = LevelTestSupervisorObject.GetComponent<TestSupervisingScript>();
         ElementCoordinates = GetComponent<ElementCoordinates>();
         
-        
-
         TableNumberX = ElementCoordinates.TableNumberX;
         TableNumberY = ElementCoordinates.TableNumberY;
         TableNumberX_toCheck = TableNumberX;
         TableNumberY_toCheck = TableNumberY;
-       
     }
 
     void FixedUpdate()
@@ -73,10 +70,8 @@ public class PlayerTesting : MonoBehaviour
 
         if(needToMove)
         {
-            
             needToMove = false;
             TestSupervisingScript.canGetNewMove = true;
-        
         }
     }
 
@@ -97,8 +92,6 @@ public class PlayerTesting : MonoBehaviour
     {
         dir = "left";
     }
-
-
 
     public void checkThisField(int X, int Y)
     {
