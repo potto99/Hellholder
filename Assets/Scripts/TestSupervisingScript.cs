@@ -12,7 +12,9 @@ public class TestSupervisingScript : MonoBehaviour
     [SerializeField] public TMP_InputField SolutionToCopy;
     [SerializeField] public TMP_Text TimeOfTest;
     int testingTextCount = 1;
-    char[] movementSequence = new char[] {'d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d'};
+    char[] movementSequence = new char[] {'d','d','d','d','d','d','d','d','d','d','d','d','d','d','d',
+        'd','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d',
+        'd','d','d','d','d'};
 
     
     

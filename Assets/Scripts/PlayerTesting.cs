@@ -118,7 +118,9 @@ public class PlayerTesting : MonoBehaviour
                             {
                                 ElementCoordinates objectElementCoordinates = levelObject.GetComponent<ElementCoordinates>();
                                 ElementTestTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTestTypeInterface>();
-                                if(objectElementTypeInterface.isEnemy == true && objectElementCoordinates.TableNumberX == TableNumberX_toCheck && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
+                                if(objectElementTypeInterface.isEnemy == true 
+                                    && objectElementCoordinates.TableNumberX == TableNumberX_toCheck 
+                                    && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
                                 {
                                     // Destroy(levelObject);
                                     objectElementTypeInterface.Push(dir);
@@ -141,7 +143,9 @@ public class PlayerTesting : MonoBehaviour
                             {
                                 ElementCoordinates objectElementCoordinates = levelObject.GetComponent<ElementCoordinates>();
                                 ElementTestTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTestTypeInterface>();
-                                if(objectElementTypeInterface.isRock == true && objectElementCoordinates.TableNumberX == TableNumberX_toCheck && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
+                                if(objectElementTypeInterface.isRock == true 
+                                    && objectElementCoordinates.TableNumberX == TableNumberX_toCheck 
+                                    && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
                                 {
                                     objectElementTypeInterface.Push(dir);
                                     TurnCounterScript.TurnDown();
@@ -162,7 +166,9 @@ public class PlayerTesting : MonoBehaviour
                             {
                                 ElementCoordinates objectElementCoordinates = levelObject.GetComponent<ElementCoordinates>();
                                 ElementTestTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTestTypeInterface>();
-                                if(objectElementTypeInterface.isKey == true && objectElementCoordinates.TableNumberX == TableNumberX_toCheck && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
+                                if(objectElementTypeInterface.isKey == true 
+                                    && objectElementCoordinates.TableNumberX == TableNumberX_toCheck 
+                                    && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
                                 {
                                     Destroy(levelObject);
                                     fieldElementTypeInterface.isHoldingKey = false;
