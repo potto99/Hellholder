@@ -5,8 +5,6 @@ using System;
 
 public class PlayerTesting : MonoBehaviour
 {
-    // [SerializeField] public int StartingX;
-    // [SerializeField] public int StartingY;
     [SerializeField] public int TableNumberX;
     [SerializeField] public int TableNumberY;
     [SerializeField] public int TableNumberX_toCheck;
@@ -33,7 +31,6 @@ public class PlayerTesting : MonoBehaviour
         LevelGeneratorScript = LevelGenerator.GetComponent<LevelTestGeneratorScript>();
         TurnCounter = GameObject.Find("TurnCounter");
         TurnCounterScript = TurnCounter.GetComponent<TurnTestCounterScript>();
-        // TurnCounterScript = LevelGenerator.GetComponent<TurnCounterScript>(); ZAMIEŃ TEN OBIEKT 
         LevelTestSupervisorObject = GameObject.Find("LevelTestSupervisorObject");
         TestSupervisingScript  = LevelTestSupervisorObject.GetComponent<TestSupervisingScript>();
         ElementCoordinates = GetComponent<ElementCoordinates>();
@@ -105,26 +102,15 @@ public class PlayerTesting : MonoBehaviour
 
     public void checkThisField(int X, int Y)
     {
-        // Debug.Log("checkcheck");
-        // Debug.Log("X: " + X + "   Y: " + Y);
-        // Debug.Log("checkcheck");
         fields = new List<GameObject>(LevelGeneratorScript.fields);
         foreach(GameObject field in fields)
         {
             ElementCoordinates fieldElementCoordinates = field.GetComponent<ElementCoordinates>();
-            // Debug.Log("Field"+fieldElementCoordinates.TableNumberX+""+fieldElementCoordinates.TableNumberY);
             if(fieldElementCoordinates.TableNumberX == X && fieldElementCoordinates.TableNumberY == Y)
             {
-                // Debug.Log("znaleziony");
                 ElementTestTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTestTypeInterface>();
                 if(fieldElementTypeInterface.isWall == true)
                 {
-                    // Debug.Log("ściana");
-                    // TurnCounterScript.TurnDown();
-                    // TableNumberX_toCheck = TableNumberX;
-                    // TableNumberY_toCheck = TableNumberY;
-                    // TestSupervisingScript.canGetNewMove = true;
-
                     TestSupervisingScript.ChangeSequence();
 
                     return;
@@ -166,7 +152,6 @@ public class PlayerTesting : MonoBehaviour
                                 ElementTestTypeInterface objectElementTypeInterface = levelObject.GetComponent<ElementTestTypeInterface>();
                                 if(objectElementTypeInterface.isRock == true && objectElementCoordinates.TableNumberX == TableNumberX_toCheck && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
                                 {
-                                    // Destroy(levelObject);
                                     objectElementTypeInterface.Push(dir);
                                     TurnCounterScript.TurnDown();
                                     TableNumberX_toCheck = TableNumberX;

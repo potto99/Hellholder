@@ -12,7 +12,6 @@ public class TestSupervisingScript : MonoBehaviour
     [SerializeField] public TMP_InputField SolutionToCopy;
     [SerializeField] public TMP_Text TimeOfTest;
     int testingTextCount = 1;
-    // string movementSequence = "dddddddddddddddddddddddddddddddddddddddd";
     char[] movementSequence = new char[] {'d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d'};
 
     
@@ -27,7 +26,6 @@ public class TestSupervisingScript : MonoBehaviour
     public int highestChanged = 0;
     public int currentlyVariablePlace = 0;
     public int iteraionOfVariable = 1;
-    GameObject LevelTestGenerator;
     [SerializeField] GameObject LevelTestGeneratorObject;
     [SerializeField] LevelTestGeneratorScript LevelTestGeneratorScript;
     [SerializeField] GameObject TurnCounter;
@@ -48,7 +46,6 @@ public class TestSupervisingScript : MonoBehaviour
     {
         
         LevelTestGeneratorObject = GameObject.Find("LevelTestGeneratorObject");
-        // LevelTestGenerator = Instantiate(LevelTestGeneratorObject);
         LevelTestGeneratorScript = LevelTestGeneratorObject.GetComponent<LevelTestGeneratorScript>();
         SeedToCopy.text = LevelTestGeneratorScript.seed;
         minTurnsAllowedToFinish = LevelTestGeneratorScript.MinMoves;
@@ -63,64 +60,38 @@ public class TestSupervisingScript : MonoBehaviour
         GameObject ContinousTester = GameObject.Find("ObjectIndicatingContinousTests");
         if(ContinousTester != null)
         {
-            Debug.Log("Contonous Tester");
             if(ContinousTester.GetComponent<ContinousTests>().testContinous == true)
             {
-                Debug.Log("Testing Continously");
                 solvingContonously = true;
                 TestingTime = ContinousTester.GetComponent<ContinousTests>().TestingTime + Time.deltaTime;
             }
 
         }
     }
+
     void FixedUpdate()
     {
-        
-       
-        
         if(canGetNewMove && finishedSearching == false && Player!=null)
         {
             TestingTime += Time.unscaledDeltaTime;
             TimeOfTest.text = TestingTime.ToString();
-         
-            
-            
+
             character = movementSequence[move];
-            
-            
             if(character == 'd'){PlayerTesting.GoRight(); canGetNewMove = false;}
             else if(character == 'w'){PlayerTesting.GoUp(); canGetNewMove = false;}
             else if(character == 's'){PlayerTesting.GoDown(); canGetNewMove = false;}
             else if(character == 'a'){PlayerTesting.GoLeft(); canGetNewMove = false;}
             move++;
             if(move > minTurnsToFinish){ChangeSequence();}
-            // if(move >= minTurnsToFinish){ChangeSequence();}
-            // ^ To było wcześniej. Mam nadzieję że niczego tym nie spierdolę
         }
     }
-
-    // void Update()
-    // {
-    //      if(canGetNewMove && finishedSearching == false && Player!=null)
-    //     {
-    //         TestingTime += Time.deltaTime;
-    //         TimeOfTest.text = TestingTime.ToString();
-    //     }
-    // }
 
     public void ChangeSequence()
     {
         ChangeTestingText(false);
         
         string movementSequenceString = new string(movementSequence);
-        
-        //---------możesz to wykorzystać do testów continous tests------------
-        // char[] tmpCheck = new char[3];
-        // tmpCheck[0] = movementSequence[0];
-        // tmpCheck[1] = movementSequence[1];
-        // tmpCheck[2] = movementSequence[2];
-        // string tmpCheckString = new string(tmpCheck);
-        // if(tmpCheckString == "aaa")
+ 
         if(movementSequenceString == "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
         {
             Debug.Log("Brak możliwości rozwiązania");
@@ -129,43 +100,32 @@ public class TestSupervisingScript : MonoBehaviour
             NeedToContinueTesting(solvingContonously);
             return;
         }
-        // bool nextOneToChange = false;
-        // char i;
+
         move = 0;
-        // i = movementSequence[currentlyVariablePlace];
-        
-       
         
         for(int i = 0; i<40; i++)
         {
-            
-           
-
             if(movementSequence[i] == 'd')
             {
                 movementSequence[i] = 'w';
                 if(i > highestChanged){highestChanged = i;}
                 break;
-                // if(nextOneToChange == true){break;}
             }
             else if(movementSequence[i] == 'w')
             {
                 movementSequence[i] = 's';
                 if(i > highestChanged){highestChanged = i;}
                 break;
-                // if(nextOneToChange == true){break;}
             }
             else if(movementSequence[i] == 's')
             {
                 movementSequence[i] = 'a';
                 if(i > highestChanged){highestChanged = i;}
                 break;
-                // if(nextOneToChange == true){break;}
             }
             else if(movementSequence[i] == 'a')
             {
                 movementSequence[i] = 'd'; 
-                // nextOneToChange = true;
             }
         }
 
@@ -175,33 +135,19 @@ public class TestSupervisingScript : MonoBehaviour
                 canGetNewMove = false;
                 return;
             }
-
-
-        
-
         
         movementSequenceString = new string(movementSequence);
-        // Debug.Log("Sprawdzam dla: " + movementSequenceString);
         Debug.Log("Check: "+movementSequenceString);
         //Resetowanie poziomu
 
         LevelTestGeneratorScript.Purge();
         TurnCounterScript.turnsLeft = 40;
-        // LevelTestGeneratorScript.Start();
         LevelTestGeneratorScript.InitializeLevelObjects();
-        // Destroy(LevelTestGenerator);
-        // LevelTestGenerator = Instantiate(LevelTestGeneratorObject);
-        // TurnCounterScript.Start();
-        // LevelTestGeneratorScript = LevelTestGenerator.GetComponent<LevelTestGeneratorScript>();
 
-    
         Player =  LevelTestGeneratorScript.players[0];
         PlayerTesting = Player.GetComponent<PlayerTesting>();
 
-        
         canGetNewMove = true;
-
-
     }
 
     public void SolutionFound(int turnsToFinish)
@@ -217,7 +163,6 @@ public class TestSupervisingScript : MonoBehaviour
         minTurnsToFinish = turnsToFinish;
         minMoves = move;
         
-
         if(minTurnsToFinish <= bestSolutionTurns)
         {
             bestSolutionTurns = minTurnsToFinish;
@@ -244,7 +189,6 @@ public class TestSupervisingScript : MonoBehaviour
         Debug.Log("Nowa solucja: " + solutionSequenceString);
         
         ChangeSequence();
-        // Debug.Log(movementSequenceString);
     }
 
     public void AllPossibilitiesChecked()
