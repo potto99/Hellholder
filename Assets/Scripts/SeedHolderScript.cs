@@ -41,9 +41,6 @@ public class SeedHolderScript : MonoBehaviour
             {
                 MaxMovesAllowedInput.transform.Find("Text Area").transform.Find("Placeholder").GetComponent<TMP_Text>().text = MaxMovesAllowed.ToString();
             }
-            
-           
-            // ownsSeed = true;
         }
     }
 
@@ -57,7 +54,10 @@ public class SeedHolderScript : MonoBehaviour
             for (int i = 0; i < seed.Length; i ++)
             {
                 character = seed[i];
-                if(character.ToString() == "f" || character.ToString() == "w" || character.ToString() == "r" || character.ToString() == "a" || character.ToString() == "o" || character.ToString() == "s" || character.ToString() == "m" || character.ToString() == "c" || character.ToString() == "n"|| character.ToString() == "e" || character.ToString() == "b" || character.ToString() == "k" || character.ToString() == "d" || character.ToString() == "g"){}
+                if(character.ToString() == "f" || character.ToString() == "w" || character.ToString() == "r" || character.ToString() == "a" || character.ToString() == "o" 
+                    || character.ToString() == "s" || character.ToString() == "m" || character.ToString() == "c" || character.ToString() == "n"|| character.ToString() == "e" 
+                    || character.ToString() == "b" || character.ToString() == "k" || character.ToString() == "d" || character.ToString() == "g")
+                {}
                 else
                 {
                     seedCorrect = false;
@@ -105,6 +105,7 @@ public class SeedHolderScript : MonoBehaviour
         }
         else
         {
+            seedCorrect = false;
             Debug.Log("Maksymalny rozmiar Seedu to 100 znaków");
         }
 

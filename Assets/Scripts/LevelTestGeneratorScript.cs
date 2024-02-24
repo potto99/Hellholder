@@ -26,7 +26,6 @@ public class LevelTestGeneratorScript : MonoBehaviour
     [SerializeField] GameObject SeedHolder;
 
     public int keys = 0;
-    // public int levelObjectCounter = 0;
     
     SeedHolderScript SeedHolderScript;
 
@@ -54,19 +53,12 @@ public class LevelTestGeneratorScript : MonoBehaviour
             character = seed[i];
             if(character.ToString() == "f") //field
             {
-                // fields.Add(field);
-                // addCoordinates(fields[i], i);
-
                 placingObject = Instantiate(field);
                 fields.Add(placingObject);
                 addCoordinates(placingObject, i);
-
             }
             else if(character.ToString() == "w") //wall
             {
-                // fields.Add(wall);
-                // addCoordinates(fields[i], i);
-
                 placingObject = Instantiate(wall);
                 fields.Add(placingObject);
                 addCoordinates(placingObject, i);
@@ -74,19 +66,10 @@ public class LevelTestGeneratorScript : MonoBehaviour
             }
             else if(character.ToString() == "r") //rock
             {
-                // fields.Add(field);
-                // addCoordinates(fields[i], i);
-                // fields[i].GetComponent<ElementTestTypeInterface>().isTakenByRock = true;
-
                 placingObject = Instantiate(field); //field on which the rock will be standing
                 fields.Add(placingObject);
                 addCoordinates(placingObject, i);
                 placingObject.GetComponent<ElementTestTypeInterface>().isTakenByRock = true;
-
-
-                // levelObjects.Add(rock);
-                // addCoordinates(levelObjects[levelObjectCounter], i);
-                // levelObjectCounter++;
 
                 placingObject = Instantiate(rock); 
                 levelObjects.Add(placingObject);
@@ -96,18 +79,10 @@ public class LevelTestGeneratorScript : MonoBehaviour
             }
             else if(character.ToString() == "e") //enemy
             {
-                // fields.Add(field);
-                // addCoordinates(fields[i], i);
-                // fields[i].GetComponent<ElementTestTypeInterface>().isTakenByEnemy = true;
-
                 placingObject = Instantiate(field); //field on which the enemy will be standing
                 fields.Add(placingObject);
                 addCoordinates(placingObject, i);
                 placingObject.GetComponent<ElementTestTypeInterface>().isTakenByEnemy = true;
-
-                // levelObjects.Add(enemy);
-                // addCoordinates(levelObjects[levelObjectCounter], i);
-                // levelObjectCounter++;
 
                 placingObject = Instantiate(enemy); 
                 levelObjects.Add(placingObject);
@@ -116,16 +91,11 @@ public class LevelTestGeneratorScript : MonoBehaviour
             }
             else if(character.ToString() == "a") //active spike
             {
-                // fields.Add(spike);
-                // addCoordinates(fields[i], i);
-                // fields[i].GetComponent<ElementTestTypeInterface>().ActivateSpike();
-
                 placingObject = Instantiate(spike);
                 fields.Add(placingObject);
                 addCoordinates(placingObject, i);
                 placingObject.GetComponent<ElementTestTypeInterface>().ActivateSpike();
                 placingObject.GetComponent<ElementTestTypeInterface>().isChangableSpike = false;
-
             }
             else if(character.ToString() == "o") //active spike with rock
             {
@@ -143,11 +113,6 @@ public class LevelTestGeneratorScript : MonoBehaviour
             }
             else if(character.ToString() == "s") //changable active spike
             {
-                // fields.Add(spike);
-                // addCoordinates(fields[i], i);
-                // fields[i].GetComponent<ElementTestTypeInterface>().isChangableSpike = true;
-                // fields[i].GetComponent<ElementTestTypeInterface>().ActivateSpike();
-
                 placingObject = Instantiate(spike);
                 fields.Add(placingObject);
                 addCoordinates(placingObject, i);
@@ -170,17 +135,11 @@ public class LevelTestGeneratorScript : MonoBehaviour
             }
             else if(character.ToString() == "c") //changable inactive spike
             {
-                // fields.Add(spike);
-                // addCoordinates(fields[i], i);
-                // fields[i].GetComponent<ElementTestTypeInterface>().isChangableSpike = true;
-                // fields[i].GetComponent<ElementTestTypeInterface>().DeactivateSpike();
-
                 placingObject = Instantiate(spike);
                 fields.Add(placingObject);
                 addCoordinates(placingObject, i);
                 placingObject.GetComponent<ElementTestTypeInterface>().isChangableSpike = true;
                 placingObject.GetComponent<ElementTestTypeInterface>().DeactivateSpike();
-
             }
              else if(character.ToString() == "n") //changable inactive spike with rock
             {
@@ -197,15 +156,9 @@ public class LevelTestGeneratorScript : MonoBehaviour
             }
             else if(character.ToString() == "b") // beginningField
             {
-                // fields.Add(beginningField);
-                // addCoordinates(fields[i], i);
-
                 placingObject = Instantiate(beginningField);
                 fields.Add(placingObject);
                 addCoordinates(placingObject, i);
-
-                // players.Add(player);
-                // addCoordinates(players[0], i);
 
                 placingPlayer = Instantiate(player);
                 players.Add(placingPlayer);
@@ -213,29 +166,17 @@ public class LevelTestGeneratorScript : MonoBehaviour
             }
             else if(character.ToString() == "d") //door
             {
-                // fields.Add(door);
-                // addCoordinates(fields[i], i);
-
                 placingObject = Instantiate(door);
                 fields.Add(placingObject);
                 addCoordinates(placingObject, i);
             } 
             else if(character.ToString() == "k") //key
             {
-                // fields.Add(field);
-                // addCoordinates(fields[i], i);
-                // fields[i].GetComponent<ElementTestTypeInterface>().isHoldingKey = true;
-
                 placingObject = Instantiate(field); //field on which the key will be standing
                 fields.Add(placingObject);
                 addCoordinates(placingObject, i);
                 placingObject.GetComponent<ElementTestTypeInterface>().isHoldingKey = true;
                 
-                // levelObjects.Add(key);
-                // addCoordinates(levelObjects[levelObjectCounter], i);
-                // levelObjectCounter++;
-                // keys++;
-
                 placingObject = Instantiate(key);
                 levelObjects.Add(placingObject);
                 addCoordinates(placingObject, i);
@@ -263,9 +204,6 @@ public class LevelTestGeneratorScript : MonoBehaviour
             addCoordinates(placingObject, i);
         }
 
-        
-
-        
         createWallFrame();
 
 

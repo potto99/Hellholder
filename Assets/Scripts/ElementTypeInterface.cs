@@ -109,15 +109,12 @@ public class ElementTypeInterface : MonoBehaviour
             }
         }
 
-        // transform.Rotate(0, 0, 45, Space.World);
     }
     public void DeactivateSpike()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         isSpikeActive = false;
         spriteRenderer.sprite = inactiveSprite;
-
-        // transform.Rotate(0, 0, -45, Space.World);
         
     }
 
