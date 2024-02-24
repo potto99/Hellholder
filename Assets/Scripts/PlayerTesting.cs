@@ -105,7 +105,6 @@ public class PlayerTesting : MonoBehaviour
                 if(fieldElementTypeInterface.isWall == true)
                 {
                     TestSupervisingScript.ChangeSequence();
-
                     return;
                 }
                 else if(fieldElementTypeInterface.isField == true)
@@ -129,7 +128,6 @@ public class PlayerTesting : MonoBehaviour
                                     CheckIfImStandingOnSpike(TableNumberX, TableNumberY);
                                     TestSupervisingScript.canGetNewMove = true;
                                     break;
-
                                 }
                             }
                         }
