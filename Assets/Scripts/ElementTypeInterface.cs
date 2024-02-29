@@ -134,23 +134,33 @@ public class ElementTypeInterface : MonoBehaviour
             if(fieldCoordinates.TableNumberX == TableNumberX_toCheck && fieldCoordinates.TableNumberY == TableNumberY_toCheck)
             {
                 ElementTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTypeInterface>();
-                if(fieldElementTypeInterface.isTakenByEnemy == false && fieldElementTypeInterface.isTakenByRock == false && fieldElementTypeInterface.isWall == false && fieldElementTypeInterface.isDoor == false)
+                if(fieldElementTypeInterface.isTakenByEnemy == false && fieldElementTypeInterface.isTakenByRock == false && fieldElementTypeInterface.isWall == false && fieldElementTypeInterface.isDoor == false && fieldElementTypeInterface.isGoal == false)
                 {
-                    // W przyszłości trzeba tu też sprawdzać, czy spike jest aktywny
-                    if(isEnemy == true){fieldElementTypeInterface.isTakenByEnemy = true;}
-                    else if(isRock == true){fieldElementTypeInterface.isTakenByRock = true;}
+                    if (isEnemy == true) { fieldElementTypeInterface.isTakenByEnemy = true; }
+                    else if (isRock == true) { fieldElementTypeInterface.isTakenByRock = true; }
                     ReleasePreviousField(myElementCoordinates.TableNumberX, myElementCoordinates.TableNumberY);
                     myElementCoordinates.TableNumberX = TableNumberX_toCheck;
                     myElementCoordinates.TableNumberY = TableNumberY_toCheck;
                     targetFieldPosition = new Vector2(fieldCoordinates.positionX, fieldCoordinates.positionY);
-                    
-                    needsToMove = true;
+
+
+                    transform.position = targetFieldPosition;
+                    if (isEnemy)
+                    {
+                        if ((fieldElementTypeInterface.isChangableSpike == false && fieldElementTypeInterface.isSpikeActive == true) || (fieldElementTypeInterface.isChangableSpike == true && fieldElementTypeInterface.isSpikeActive == false))
+                        {
+                            ReleaseBeforeDestroying();
+                            Destroy(gameObject);
+                        }
+
+                    }
 
                 }
                 else
                 {
                     if(isEnemy)
                     {
+                        ReleaseBeforeDestroying();
                         Destroy(gameObject);
                     }
                 }
@@ -175,8 +185,38 @@ public class ElementTypeInterface : MonoBehaviour
         }
     }
 
+    void ReleaseBeforeDestroying()
+    {
+        {
+            LevelGeneratorScript.levelObjects.Remove(this.gameObject);
+            LevelGeneratorScript.levelObjects.TrimExcess();
+            if (isEnemy)
+            {
 
-    void OnDestroy()
+                ReleasePreviousField(myElementCoordinates.TableNumberX, myElementCoordinates.TableNumberY);
+            }
+            if (isKey)
+            {
+                List<GameObject> fields = LevelGeneratorScript.fields;
+                foreach (GameObject field in fields)
+                {
+                    if (field != null) //Warunek potrzebny, żeby kompilator nie płakał błędami w trakcie wychodzenia z playtestu
+                    {
+                        ElementCoordinates fieldCoordinates = field.GetComponent<ElementCoordinates>();
+
+                        if (fieldCoordinates.TableNumberX == myElementCoordinates.TableNumberX && fieldCoordinates.TableNumberY == myElementCoordinates.TableNumberY)
+                        {
+                            ElementTestTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTestTypeInterface>();
+                            fieldElementTypeInterface.isHoldingKey = false;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+        void OnDestroy()
     {
         LevelGeneratorScript.levelObjects.Remove(this.gameObject);
         LevelGeneratorScript.levelObjects.TrimExcess();

@@ -10,7 +10,7 @@ public class ContinousTests : MonoBehaviour
     RandomSeedGenerator RandomSeedGeneratorScript;
 
    
-    public float TestingTime;
+    public double TestingTime;
     public bool testContinous = false;
 
     void Start() 

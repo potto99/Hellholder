@@ -117,9 +117,8 @@ public class ElementTestTypeInterface : MonoBehaviour
             if(fieldCoordinates.TableNumberX == TableNumberX_toCheck && fieldCoordinates.TableNumberY == TableNumberY_toCheck)
             {
                 ElementTestTypeInterface fieldElementTypeInterface = field.GetComponent<ElementTestTypeInterface>();
-                if(fieldElementTypeInterface.isTakenByEnemy == false && fieldElementTypeInterface.isTakenByRock == false && fieldElementTypeInterface.isWall == false && fieldElementTypeInterface.isDoor == false)
+                if(fieldElementTypeInterface.isTakenByEnemy == false && fieldElementTypeInterface.isTakenByRock == false && fieldElementTypeInterface.isWall == false && fieldElementTypeInterface.isDoor == false && fieldElementTypeInterface.isGoal == false)
                 {
-                    // W przyszłości trzeba tu też sprawdzać, czy spike jest aktywny
                     if(isEnemy == true){fieldElementTypeInterface.isTakenByEnemy = true;}
                     else if(isRock == true){fieldElementTypeInterface.isTakenByRock = true;}
                     ReleasePreviousField(myElementCoordinates.TableNumberX, myElementCoordinates.TableNumberY);

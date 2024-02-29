@@ -122,7 +122,6 @@ public class PlayerTesting : MonoBehaviour
                                     && objectElementCoordinates.TableNumberX == TableNumberX_toCheck 
                                     && objectElementCoordinates.TableNumberY == TableNumberY_toCheck)
                                 {
-                                    // Destroy(levelObject);
                                     objectElementTypeInterface.Push(dir);
                                     TurnCounterScript.TurnDown();
                                     TableNumberX_toCheck = TableNumberX;
@@ -151,6 +150,7 @@ public class PlayerTesting : MonoBehaviour
                                     TurnCounterScript.TurnDown();
                                     TableNumberX_toCheck = TableNumberX;
                                     TableNumberY_toCheck = TableNumberY;
+                                    CheckIfImStandingOnSpike(TableNumberX, TableNumberY);
                                     TestSupervisingScript.canGetNewMove = true;
                                     break;
                                 }

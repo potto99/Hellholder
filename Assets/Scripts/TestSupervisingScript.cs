@@ -18,7 +18,7 @@ public class TestSupervisingScript : MonoBehaviour
 
     
     
-    public float TestingTime = 0;
+    public double TestingTime = 0;
     public int move = 0;
     public int minMoves = 40;
     public int minTurnsToFinish = 40;
@@ -75,7 +75,7 @@ public class TestSupervisingScript : MonoBehaviour
     {
         if(canGetNewMove && finishedSearching == false && Player!=null)
         {
-            TestingTime += Time.unscaledDeltaTime;
+            TestingTime += (double) Time.unscaledDeltaTime;
             TimeOfTest.text = TestingTime.ToString();
 
             character = movementSequence[move];

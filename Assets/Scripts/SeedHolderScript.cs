@@ -97,7 +97,7 @@ public class SeedHolderScript : MonoBehaviour
             {
                 if(MaxMovesAllowed == 0)
                 {
-                    MaxMovesAllowed = 10;
+                    MaxMovesAllowed = 40;
                 }
             }
 
@@ -166,7 +166,7 @@ public class SeedHolderScript : MonoBehaviour
             {
                 if(MaxMovesAllowed == 0)
                 {
-                    MaxMovesAllowed = 10;
+                    MaxMovesAllowed = 40;
                 }
             }
         }

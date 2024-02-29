@@ -264,6 +264,5 @@ public class LevelTestGeneratorScript : MonoBehaviour
             Destroy(player);
         }
         players.Clear();
-
     }
 }
